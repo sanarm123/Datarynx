@@ -2,43 +2,124 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Datarynx.Views.ItemsPage"
-             Title="{Binding Title}"
+               Title="{Binding Title}"
              xmlns:local="clr-namespace:Datarynx.ViewModels"  
              xmlns:model1="clr-namespace:Datarynx.LocalDB.Models;assembly=Datarynx.LocalDB"
-             x:Name="BrowseItemsPage">
+             x:Name="BrowseItemsPage"  >
 
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center"  >
+            <Label Text="{Binding Title}"   VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold"  ></Label>
+
+            <Image Source="greenicon.png"
+               HorizontalOptions="End"
+               VerticalOptions="Center" HeightRequest="25"  />
+            <!--#endregion-->
+
+        </StackLayout>
+      
+    </Shell.TitleView>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Refresh" Command="{Binding LoadItemsCommand}"  />
+        <ToolbarItem Text="Filter" Command="{Binding ShowSearchBar}" />
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"
+    <StackLayout>
+
+        <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="10*" >
+                    </ColumnDefinition>
+                    <ColumnDefinition Width="*">
+                    </ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+
+                <StackLayout HorizontalOptions="Start" Orientation="Horizontal" Grid.Row="0" Grid.Column="0" >
+
+                    <Label Text=" Sort By" VerticalOptions="Center" FontAttributes="Bold"></Label>
+                    <Picker Title="BDD"
+                 x:Name="picker"
+                 BackgroundColor="LightBlue"
+                    TextColor="White" SelectedItem="{Binding SelectedSort}" VerticalOptions="Center" WidthRequest="100 " >
+                        <Picker.Items>
+                            <x:String>BDD</x:String>
+                            <x:String>ASC</x:String>
+                            <x:String>DESC</x:String>
+                         
+                        </Picker.Items>
+
+                    </Picker>
+ 
+
+
+                </StackLayout>
+
+                <Image Source="question.png" Grid.Row="0" Grid.Column="1"
+                
+                   VerticalOptions="Center" HorizontalOptions="End"  />
+            </Grid>
+            
+            
+                    
+
+        </StackLayout>
+        <StackLayout>
+            <SearchBar x:Name="searchBar"
+                   SearchCommand="{Binding PerformSearch}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" IsVisible="{Binding ShowSearchBarSection}"/>
+            <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model1:ToDoItem">
-                        <Label Text="{Binding StoreName}" 
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="4"
+                        />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        
+                        
+
+                        <DataTemplate>
+                            <Frame HasShadow="true" CornerRadius="1"   Padding="10" Margin="5"  VerticalOptions="Center">
+                                <StackLayout Padding="10" x:DataType="model1:ToDoItem" BackgroundColor="LightGray">
+                                    <Label Text="{Binding StoreName}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />
-                        <Label Text="{Binding StoreAddress}" 
+                                    <Label Text="{Binding StoreAddress}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
+                            FontSize="20" FontAttributes="Bold" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
                                 CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Frame>
+                           
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+      
+
+    </StackLayout>
+ 
 </ContentPage>

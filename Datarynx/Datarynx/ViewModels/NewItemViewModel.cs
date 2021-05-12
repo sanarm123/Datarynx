@@ -53,7 +53,7 @@ namespace Datarynx.ViewModels
             ToDoItem newItem = new ToDoItem()
             {
                 StoreName=Text,
-                CodingType="TYPE1",
+                CodingType= "Item Coding",
                 StoreAddress=Description,
                 TaskStatus ="Not Started",
                 CreateDate=DateTime.Now
