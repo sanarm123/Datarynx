@@ -1,4 +1,7 @@
-﻿using Datarynx.Models;
+﻿using Datarynx.LocalData;
+using Datarynx.LocalDB.DBContext;
+using Datarynx.LocalDB.Models;
+using Datarynx.Models;
 using Datarynx.Services;
 using System;
 using System.Collections.Generic;
@@ -11,6 +14,13 @@ namespace Datarynx.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+
+    //    SqlLiteDatabaseContext SqlLiteDatabaseContext = ;
+
+
+        
+
+        public IToDoItemDataRepository ToDoItemDataRepository => DependencyService.Get<IToDoItemDataRepository>();
 
         bool isBusy = false;
         public bool IsBusy

@@ -1,4 +1,5 @@
-﻿using Datarynx.Models;
+﻿using Datarynx.LocalDB.Models;
+using Datarynx.Models;
 using Datarynx.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -10,20 +11,20 @@ namespace Datarynx.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private ToDoItem _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<ToDoItem> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<ToDoItem> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<ToDoItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<ToDoItem>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -35,7 +36,7 @@ namespace Datarynx.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await ToDoItemDataRepository.GetItemAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -57,7 +58,7 @@ namespace Datarynx.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public ToDoItem SelectedItem
         {
             get => _selectedItem;
             set
@@ -72,13 +73,13 @@ namespace Datarynx.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(ToDoItem item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.ToDoItemID}");
         }
     }
 }

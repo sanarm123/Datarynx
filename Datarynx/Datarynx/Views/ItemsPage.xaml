@@ -4,7 +4,7 @@
              x:Class="Datarynx.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:Datarynx.ViewModels"  
-             xmlns:model="clr-namespace:Datarynx.Models"  
+             xmlns:model1="clr-namespace:Datarynx.LocalDB.Models;assembly=Datarynx.LocalDB"
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
@@ -20,12 +20,12 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Item">
-                        <Label Text="{Binding Text}" 
+                    <StackLayout Padding="10" x:DataType="model1:ToDoItem">
+                        <Label Text="{Binding StoreName}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />
-                        <Label Text="{Binding Description}" 
+                        <Label Text="{Binding StoreAddress}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
                             FontSize="13" />

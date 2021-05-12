@@ -1,6 +1,9 @@
-﻿using Datarynx.Services;
+﻿using Datarynx.LocalData;
+using Datarynx.LocalDB.DBContext;
+using Datarynx.Services;
 using Datarynx.Views;
 using System;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,6 +17,10 @@ namespace Datarynx
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<SqlLiteDatabaseContext>();
+            DependencyService.Register<IToDoItemDataRepository, ToDoItemDataRepository>();
+
+
             MainPage = new AppShell();
         }
 

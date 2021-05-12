@@ -1,4 +1,5 @@
-﻿using Datarynx.Models;
+﻿using Datarynx.LocalDB.Models;
+using Datarynx.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -49,14 +50,16 @@ namespace Datarynx.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            ToDoItem newItem = new ToDoItem()
             {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
+                StoreName=Text,
+                CodingType="TYPE1",
+                StoreAddress=Description,
+                TaskStatus ="Not Started",
+                CreateDate=DateTime.Now
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await ToDoItemDataRepository.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
