@@ -15,5 +15,10 @@ namespace Datarynx.LocalDB.Models
         public string CodingType { get; set; }
         public string TaskStatus { get; set; }
 
+        public string WeekNo { get; set; }
+
+        public string WeekDate { get; set; }
+
+
     }
 }

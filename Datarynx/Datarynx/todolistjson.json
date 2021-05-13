@@ -1,0 +1,62 @@
+{
+  "ListItems":
+  [
+    {
+      "StoreName": "‘34492783/NEW RANDOLPH STORE 0045",
+      "CodingType": "Item Coding",
+      "StoreAddress": "630 3RD ST WEST, RANDOLPH AFB,TX, 78150",
+      "TaskStatus": "Not Started",
+      "WeekNo": "wk35",
+      "WeekDate": "08-09"
+    },
+    {
+      "StoreName": "34492783/NEW RANDOLPH STORE 0045",
+      "CodingType": "Item Coding",
+      "StoreAddress": "630 3RD ST WEST, RANDOLPH AFB,TX, 78150",
+      "TaskStatus": "Not Started",
+      "WeekNo": "wk36",
+      "WeekDate": "08-09"
+
+    },
+    {
+      "StoreName": "24492783/NEW RANDOLPH STORE 0045",
+      "CodingType": "Item Coding",
+      "StoreAddress": "630 3RD ST WEST, RANDOLPH AFB,TX, 78150",
+      "TaskStatus": "In-Progress",
+      "WeekNo": "wk37",
+      "WeekDate": "08-09"
+    },
+    {
+      "StoreName": "24492786/NEW RANDOLPH STORE 0045",
+      "CodingType": "Item Coding",
+      "StoreAddress": "630 3RD ST WEST, RANDOLPH AFB,TX, 78150",
+      "TaskStatus": "In-Progress",
+      "WeekNo": "wk38",
+      "WeekDate": "08-09"
+    },
+    {
+      "StoreName": "24492788/NEW RANDOLPH STORE 0045",
+      "CodingType": "Item Coding",
+      "StoreAddress": "630 3RD ST WEST, RANDOLPH AFB,TX, 78150",
+      "TaskStatus": "In-Progress",
+      "WeekNo": "wk39",
+      "WeekDate": "08-09"
+    },
+    {
+      "StoreName": "24492789/NEW RANDOLPH STORE 0045",
+      "CodingType": "Item Coding",
+      "StoreAddress": "630 3RD ST WEST, RANDOLPH AFB,TX, 78150",
+      "TaskStatus": "In-Progress",
+      "WeekNo": "wk40",
+      "WeekDate": "08-09"
+    },
+    {
+      "StoreName": "24492789/NEW RANDOLPH STORE 0045",
+      "CodingType": "Item Coding",
+      "StoreAddress": "630 3RD ST WEST, RANDOLPH AFB,TX, 78150",
+      "TaskStatus": "In-Progress",
+      "WeekNo": "wk41",
+      "WeekDate": "08-09"
+    }
+  ]
+}

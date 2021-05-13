@@ -53,5 +53,6 @@ namespace Datarynx.ViewModels
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
     }
 }

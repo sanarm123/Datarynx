@@ -114,6 +114,8 @@ namespace Datarynx.ViewModels
         {
 
 
+
+
             var items = await ToDoItemDataRepository.GetItemAsync();
 
             if (SelectedSort == "BDD")
