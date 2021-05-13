@@ -19,8 +19,6 @@ namespace Datarynx.ViewModels
 
         public Command ShowSearchBar { get; }
 
-       
-        public Command AddItemCommand { get; }
         public Command<ToDoItem> ItemTapped { get; }
 
         private string searchCriteria;
@@ -68,7 +66,7 @@ namespace Datarynx.ViewModels
 
             ShowSearchBar = new Command(OnSearchBarcClicked);
             ItemTapped = new Command<ToDoItem>(OnItemSelected);
-            AddItemCommand = new Command(OnAddItem);
+          
         }
 
         private bool? _showSearchBarSection = false;
@@ -178,10 +176,6 @@ namespace Datarynx.ViewModels
             }
         }
 
-        private async void OnAddItem(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
-        }
 
         async void OnItemSelected(ToDoItem item)
         {
