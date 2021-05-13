@@ -14,5 +14,11 @@
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
   
+    
+  </style>
+
+  <style name="Mytheme.Splash" parent="MainTheme.Base">
+    <item name="android:windowBackground">@drawable/splash_screen</item>
+    <item name="android:windowNoTitle">true</item>
   </style>
 </resources>
