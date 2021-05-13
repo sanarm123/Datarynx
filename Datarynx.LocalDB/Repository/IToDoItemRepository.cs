@@ -12,6 +12,8 @@ namespace Datarynx.LocalDB.Repository
       
         Task<List<ToDoItem>> GetItemAsync();
 
+        Task<List<ToDoItem>> GetItemAsync(string searchCriteria);
+
         Task<ToDoItem> GetItemAsync(int id);
 
     }

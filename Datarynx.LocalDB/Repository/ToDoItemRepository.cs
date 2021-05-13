@@ -27,6 +27,16 @@ namespace Datarynx.LocalDB.Repository
 
         }
 
+        public Task<List<ToDoItem>> GetItemAsync(string searchCriteria)
+        {
+            if (searchCriteria != null)
+            {
+                return _sqlLiteDatabaseContext.Connection.Table<ToDoItem>().Where(c=>c.StoreName.ToUpper().Contains(searchCriteria.ToUpper())|| c.WeekNo.ToUpper().Contains(searchCriteria.ToUpper())).ToListAsync();
+            }
+            return _sqlLiteDatabaseContext.Connection.Table<ToDoItem>().ToListAsync();
+
+        }
+
         public async Task<ToDoItem> GetItemAsync(int id)
         {
             return await _sqlLiteDatabaseContext.Connection.Table<ToDoItem>().FirstOrDefaultAsync(c => c.ToDoItemID == id);

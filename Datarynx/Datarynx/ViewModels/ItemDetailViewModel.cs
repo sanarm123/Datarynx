@@ -11,6 +11,7 @@ namespace Datarynx.ViewModels
     {
         private string itemId;
         private string text;
+      
         private string description;
         public string Id { get; set; }
 
@@ -20,6 +21,7 @@ namespace Datarynx.ViewModels
             set => SetProperty(ref text, value);
         }
 
+        
         public string Description
         {
             get => description;

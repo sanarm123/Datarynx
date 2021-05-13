@@ -20,13 +20,10 @@
       
     </Shell.TitleView>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Refresh" Command="{Binding LoadItemsCommand}"  />
-        <ToolbarItem Text="Filter" Command="{Binding ShowSearchBar}" />
+        <ToolbarItem  IconImageSource="refresh.png" Command="{Binding LoadItemsCommand}"  />
+        <ToolbarItem IconImageSource="filter.png" Command="{Binding ShowSearchBar}" />
     </ContentPage.ToolbarItems>
-    <!--
-      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
-      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
-    -->
+   
     <StackLayout>
 
         <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
@@ -67,7 +64,7 @@
 
                 <Image Source="question.png" Grid.Row="0" Grid.Column="1"
                 
-                   VerticalOptions="Center" HorizontalOptions="End"  />
+                   VerticalOptions="Center" HorizontalOptions="End" Margin="5"  />
             </Grid>
             
             
@@ -76,8 +73,10 @@
         </StackLayout>
         <StackLayout>
             <SearchBar x:Name="searchBar"
-                   SearchCommand="{Binding PerformSearch}"
+                   Text="{Binding SearchCriteria}"
                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" IsVisible="{Binding ShowSearchBarSection}"/>
+            
+            
             <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
                 <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
@@ -94,15 +93,52 @@
 
                         <DataTemplate>
                             <Frame HasShadow="true" CornerRadius="1"   Padding="10" Margin="5"  VerticalOptions="Center">
+                                
+                                
                                 <StackLayout Padding="10" x:DataType="model1:ToDoItem" BackgroundColor="LightGray">
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding WeekNo}" 
+                         
+                                        Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="16"  FontAttributes="Bold" />
+                                      
+                                    </StackLayout>
+                              
+                                    <Label Text="{Binding WeekDate}" 
+                         
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="16" FontAttributes="Bold" Grid.Row="2" />
+
                                     <Label Text="{Binding StoreName}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-                                    <Label Text="{Binding StoreAddress}" 
-                            LineBreakMode="NoWrap"
+                     
                             Style="{DynamicResource ListItemDetailTextStyle}"
                             FontSize="20" FontAttributes="Bold" />
+
+                                    <Label Text="{Binding StoreAddress}" 
+                           
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="20" FontAttributes="Bold"/>
+
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <Label Text="{Binding CodingType}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="16" FontAttributes="Bold" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
+
+                                        <Button  Text="Start Audit"  FontSize="24" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}"
+                    HorizontalOptions="EndAndExpand"  >
+
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding TaskStatus}" Value="In-Progress">
+                                                    <Setter Property="IsVisible" Value="False"/>
+                                                </DataTrigger>
+                                            </Button.Triggers>
+
+                                        </Button>
+                                    </StackLayout>
+
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
@@ -110,7 +146,10 @@
                                 CommandParameter="{Binding .}">
                                         </TapGestureRecognizer>
                                     </StackLayout.GestureRecognizers>
+                                    
                                 </StackLayout>
+                                
+                               
                             </Frame>
                            
                         </DataTemplate>

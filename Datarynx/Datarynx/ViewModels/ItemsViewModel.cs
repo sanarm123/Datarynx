@@ -18,11 +18,31 @@ namespace Datarynx.ViewModels
         public Command LoadItemsCommand { get; }
 
         public Command ShowSearchBar { get; }
-        
+
+       
         public Command AddItemCommand { get; }
         public Command<ToDoItem> ItemTapped { get; }
 
+        private string searchCriteria;
+        public string SearchCriteria
+        {
+            get =>searchCriteria;
+            set
+            {
 
+                SetProperty(ref searchCriteria, value);
+                FillItems();
+            }
+        }
+
+        private void FillItems()
+        {
+            Items.Clear();
+            Task.Run(async () =>
+            {
+                await ExecuteLoadItemsCommand();
+            });
+        }
 
         private string _selectedSort="BDD";
         public string SelectedSort
@@ -30,18 +50,11 @@ namespace Datarynx.ViewModels
             get => _selectedSort;
             set
             {
-
                 var currentSort = _selectedSort;
-
                 SetProperty(ref _selectedSort, value);
-                // OnItemSelected();
-
                 if (_selectedSort != currentSort)
                 {
-                    Items.Clear();
-                    Task.Run(async () => {
-                        await ExecuteLoadItemsCommand();
-                    });
+                    FillItems();
                 }
             }
         }
@@ -54,9 +67,7 @@ namespace Datarynx.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             ShowSearchBar = new Command(OnSearchBarcClicked);
-
             ItemTapped = new Command<ToDoItem>(OnItemSelected);
-
             AddItemCommand = new Command(OnAddItem);
         }
 
@@ -114,9 +125,10 @@ namespace Datarynx.ViewModels
         {
 
 
+            Items.Clear();
 
+            var items = await ToDoItemDataRepository.GetItemAsync(SearchCriteria);
 
-            var items = await ToDoItemDataRepository.GetItemAsync();
 
             if (SelectedSort == "BDD")
             {
