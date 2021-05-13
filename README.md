@@ -1,4 +1,4 @@
 # Datarynx
 
 
-<h1>Datarynx To-Do List Project</h1>
+<h1>To-Do List Project</h1>
