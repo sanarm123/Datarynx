@@ -10,7 +10,7 @@ namespace Datarynx.LocalDB.DBContext
 {
    public class SqlLiteDatabaseContext
     {
-       public static SQLiteAsyncConnection _sqlLiteAsyncConnection;
+       public readonly SQLiteAsyncConnection _sqlLiteAsyncConnection;
 
         /// <summary>
         /// Constructor

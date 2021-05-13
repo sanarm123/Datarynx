@@ -10,7 +10,7 @@ namespace Datarynx.LocalDB.Repository
     public class ToDoItemRepository : IToDoItemRepository
     {
 
-        private SqlLiteDatabaseContext _sqlLiteDatabaseContext;
+        private readonly SqlLiteDatabaseContext _sqlLiteDatabaseContext;
 
         public ToDoItemRepository(SqlLiteDatabaseContext sqlLiteDatabaseContext)
         {

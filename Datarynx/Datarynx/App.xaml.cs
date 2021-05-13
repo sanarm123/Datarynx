@@ -29,16 +29,29 @@ namespace Datarynx
             MainPage = new AppShell();
         }
 
+        /// <summary>
+        /// OnStart method
+        /// </summary>
         protected override void OnStart()
         {
+            //Method is empty has its not implemeted.
         }
 
+        /// <summary>
+        /// OnSleep method
+        /// </summary>
         protected override void OnSleep()
         {
+            //Method is empty has its not implemeted.
         }
 
+        /// <summary>
+        /// OnResume method
+        /// </summary>
         protected override void OnResume()
         {
+
+            //Method is empty has its not implemeted.
         }
     }
 }

@@ -44,8 +44,6 @@ namespace Datarynx.ViewModels
             try
             {
                 var item = await ToDoItemDataRepository.GetItemAsync(int.Parse(itemId));
-
-              // var item = await DataStore.GetItemAsync(itemId);
                 Id = item.ToDoItemID.ToString();
                 Text = item.StoreName;
                 Description = item.StoreAddress;
