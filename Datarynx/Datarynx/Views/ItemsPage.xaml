@@ -84,7 +84,7 @@
                 SelectionMode="None">
 
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="4"
+                        <GridItemsLayout Orientation="Vertical" 
                         />
                     </CollectionView.ItemsLayout>
 

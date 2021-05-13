@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Datarynx.LocalData
+namespace Datarynx.LocalDB.Repository
 {
-   public interface IToDoItemDataRepository
+   public interface IToDoItemRepository
     {
         Task<int> AddItemAsync(ToDoItem item);
-        Task<bool> UpdateItemAsync(ToDoItem item);
-        Task<bool> DeleteItemAsync(string id);
+      
         Task<List<ToDoItem>> GetItemAsync();
 
-        Task<ToDoItem> GetItemAsync(string id);
+        Task<ToDoItem> GetItemAsync(int id);
+
     }
 }

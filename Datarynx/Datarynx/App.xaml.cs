@@ -1,5 +1,6 @@
-﻿using Datarynx.LocalData;
+﻿
 using Datarynx.LocalDB.DBContext;
+using Datarynx.LocalDB.Repository;
 using Datarynx.Services;
 using Datarynx.Views;
 using System;
@@ -18,8 +19,12 @@ namespace Datarynx
 
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<SqlLiteDatabaseContext>();
-            DependencyService.Register<IToDoItemDataRepository, ToDoItemDataRepository>();
+            
+            //Resolve DBContext
+            var dataRepository =DependencyService.Get<SqlLiteDatabaseContext>();
 
+            //Register Repository
+            DependencyService.RegisterSingleton<IToDoItemRepository>(new ToDoItemRepository(dataRepository));
 
             MainPage = new AppShell();
         }

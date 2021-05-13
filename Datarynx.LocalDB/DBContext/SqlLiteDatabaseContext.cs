@@ -10,7 +10,7 @@ namespace Datarynx.LocalDB.DBContext
 {
    public class SqlLiteDatabaseContext
     {
-        readonly SQLiteAsyncConnection _sqlLiteAsyncConnection;
+       public static SQLiteAsyncConnection _sqlLiteAsyncConnection;
 
         /// <summary>
         /// Constructor
@@ -18,34 +18,24 @@ namespace Datarynx.LocalDB.DBContext
         /// <param name="dbPath"></param>
         public SqlLiteDatabaseContext()
         {
-              
-            _sqlLiteAsyncConnection = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Datarynx.db3"));
+
+            if (_sqlLiteAsyncConnection == null)
+            {
+                _sqlLiteAsyncConnection = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Datarynx.db3"));
                 _sqlLiteAsyncConnection.CreateTableAsync<ToDoItem>().Wait();
+
+                //Get Items Count, if items count is zero then add manually.
+
+            }
           
+
+        }
+     
+        public SQLiteAsyncConnection Connection
+        {
+            get { return _sqlLiteAsyncConnection; }
+           
         }
 
-        /// <summary>
-        /// SaveToDoItemSync
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public Task<int> SaveToDoItemSync(ToDoItem item)
-        {
-            return _sqlLiteAsyncConnection.InsertAsync(item);
-        }
-
-        /// <summary>
-        /// GetToDoItems
-        /// </summary>
-        /// <returns></returns>
-        public Task<List<ToDoItem>> GetToDoItems()
-        {
-            return _sqlLiteAsyncConnection.Table<ToDoItem>().ToListAsync();
-        }
-
-        public async Task<ToDoItem> GetItemAsync(int id)
-        {
-            return await _sqlLiteAsyncConnection.Table<ToDoItem>().FirstOrDefaultAsync(c=>c.ToDoItemID==id);
-        }
     }
 }

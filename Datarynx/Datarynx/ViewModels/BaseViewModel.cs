@@ -1,6 +1,7 @@
-﻿using Datarynx.LocalData;
+﻿
 using Datarynx.LocalDB.DBContext;
 using Datarynx.LocalDB.Models;
+using Datarynx.LocalDB.Repository;
 using Datarynx.Models;
 using Datarynx.Services;
 using System;
@@ -20,7 +21,7 @@ namespace Datarynx.ViewModels
 
         
 
-        public IToDoItemDataRepository ToDoItemDataRepository => DependencyService.Get<IToDoItemDataRepository>();
+        public IToDoItemRepository ToDoItemDataRepository => DependencyService.Get<IToDoItemRepository>();
 
         bool isBusy = false;
         public bool IsBusy
