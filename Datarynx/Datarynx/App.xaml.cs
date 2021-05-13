@@ -38,6 +38,7 @@ namespace Datarynx
             
             var items= itemsReository.GetItemAsync().Result;
 
+
             if (items.Count==0) {
 
                 string jsonFileName = "todolistjson.json";
