@@ -36,7 +36,7 @@ namespace Datarynx
             var itemsReository= DependencyService.Get<IToDoItemRepository>();
 
             
-            var items= itemsReository.GetItemAsync().Result;
+            var items= itemsReository.GetItemAsync(string.Empty).Result;
 
 
             if (items.Count==0) {

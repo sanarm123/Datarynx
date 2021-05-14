@@ -10,11 +10,9 @@ namespace Datarynx.LocalDB.Repository
     {
         Task<int> AddItemAsync(ToDoItem item);
       
-        Task<List<ToDoItem>> GetItemAsync();
-
         Task<List<ToDoItem>> GetItemAsync(string searchCriteria);
 
         Task<ToDoItem> GetItemAsync(int id);
-
+     
     }
 }

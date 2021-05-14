@@ -21,15 +21,10 @@ namespace Datarynx.LocalDB.Repository
             return _sqlLiteDatabaseContext.Connection.InsertAsync(item);
         }
 
-        public Task<List<ToDoItem>> GetItemAsync()
-        {
-            return _sqlLiteDatabaseContext.Connection.Table<ToDoItem>().ToListAsync();
-
-        }
 
         public Task<List<ToDoItem>> GetItemAsync(string searchCriteria)
         {
-            if (searchCriteria != null)
+            if (!string.IsNullOrEmpty(searchCriteria))
             {
                 return _sqlLiteDatabaseContext.Connection.Table<ToDoItem>().Where(c=>c.StoreName.ToUpper().Contains(searchCriteria.ToUpper())|| c.WeekNo.ToUpper().Contains(searchCriteria.ToUpper())).ToListAsync();
             }
