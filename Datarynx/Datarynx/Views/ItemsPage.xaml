@@ -9,7 +9,7 @@
 
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center"  >
-            <Label Text="{Binding Title}"   VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold"  ></Label>
+            <Label Text="{Binding Title}"    VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold"  ></Label>
              <Image Source="greenicon.png"
                HorizontalOptions="End"
                VerticalOptions="Center" HeightRequest="25"  />
@@ -26,7 +26,7 @@
         <StackLayout  Orientation="Horizontal">
 
             <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
-                <Label Text=" Sort By" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Start"></Label>
+                <Label Text=" Sort By" AutomationId="SortedBy" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Start"></Label>
                 <Picker Title="BDD"
                  x:Name="picker" 
                              SelectedItem="{Binding SelectedSort}" BackgroundColor="White" FlexLayout.AlignSelf="Center" VerticalOptions="Center" WidthRequest="100 " >

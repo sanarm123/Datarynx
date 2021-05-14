@@ -8,6 +8,7 @@ using Datarynx.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using Xamarin.Forms;
@@ -15,6 +16,7 @@ using Xamarin.Forms.Xaml;
 
 namespace Datarynx
 {
+    [ExcludeFromCodeCoverage]
     public partial class App : Application
     {
 
