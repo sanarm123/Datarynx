@@ -9,6 +9,7 @@ namespace Datarynx.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
+
         private string itemId;
         private string text;
       
@@ -41,10 +42,11 @@ namespace Datarynx.ViewModels
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public virtual async void LoadItemId(string itemId)
         {
             try
             {
+
                 var item = await ToDoItemDataRepository.GetItemAsync(int.Parse(itemId));
 
 

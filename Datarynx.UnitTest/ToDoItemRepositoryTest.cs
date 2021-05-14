@@ -1,6 +1,8 @@
 ﻿using Datarynx.LocalDB.DBContext;
 using Datarynx.LocalDB.Models;
 using Datarynx.LocalDB.Repository;
+
+using FakeItEasy;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -15,19 +17,25 @@ namespace Datarynx.UnitTest
     public  class ToDoItemRepositoryTest
     {
         [Fact]
-        public async Task GetItemAsync_TEST()
+        public async Task GetItemAsync_Call_Test()
         {
-            
-            var repos = new Mock<IToDoItemRepository>();
+            IToDoItemRepository rr = new ToDoItemRepository(new LocalDB.DBContext.SqlLiteDatabaseContext());
 
-            var myList = new List<ToDoItem>();
-            myList.Add(new ToDoItem());
-            myList.Add(new ToDoItem());
-            myList.Add(new ToDoItem());
+            var test = await rr.GetItemAsync("wk");
 
-            repos.Setup( x =>x.GetItemAsync("wk")).ReturnsAsync(myList);
-            var output = await repos.Object.GetItemAsync("wk");
-            Assert.Equal(3,output.Count);
+            Assert.NotNull(test);
+
+        }
+
+        [Fact]
+        public void Model_Object_Not_NULL_Test()
+        {
+            ToDoItem todoItem = new ToDoItem();
+            todoItem.StoreName = "Test";
+            todoItem.TaskStatus = "Not Started";
+            Assert.NotNull(todoItem);
+
+
         }
     }
 }

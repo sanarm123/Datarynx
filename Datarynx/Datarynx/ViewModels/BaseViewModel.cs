@@ -14,7 +14,6 @@ namespace Datarynx.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IToDoItemRepository ToDoItemDataRepository => DependencyService.Get<IToDoItemRepository>();
 
         bool isBusy = false;
