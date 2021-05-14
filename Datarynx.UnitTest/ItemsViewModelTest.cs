@@ -1,9 +1,11 @@
 using Datarynx.ViewModels;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace Datarynx.UnitTest
 {
+    [ExcludeFromCodeCoverage]
     public class ItemsViewModelTest
     {
         private ItemsViewModel _itemsViewModel;

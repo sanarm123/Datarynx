@@ -1,13 +1,14 @@
 ﻿using Datarynx.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Xunit;
 
 namespace Datarynx.UnitTest
 {
-
-   public class LoginViewModelTest
+    [ExcludeFromCodeCoverage]
+    public class LoginViewModelTest
     {
         private LoginViewModel _loginViewModel;
         public LoginViewModelTest()
