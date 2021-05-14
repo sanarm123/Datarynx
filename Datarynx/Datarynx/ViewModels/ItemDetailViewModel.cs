@@ -11,22 +11,22 @@ namespace Datarynx.ViewModels
     {
 
         private string itemId;
-        private string text;
+        private string storeName;
       
-        private string description;
+        private string storeAddress;
         public string Id { get; set; }
 
-        public string Text
+        public string StoreName
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => storeName;
+            set => SetProperty(ref storeName, value);
         }
 
         
-        public string Description
+        public string StoreAddress
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => storeAddress;
+            set => SetProperty(ref storeAddress, value);
         }
 
         public string ItemId
@@ -46,14 +46,12 @@ namespace Datarynx.ViewModels
         {
             try
             {
-
+                Title = "Details";
                 var item = await ToDoItemDataRepository.GetItemAsync(int.Parse(itemId));
 
-
-
                 Id = item.ToDoItemID.ToString();
-                Text = item.StoreName;
-                Description = item.StoreAddress;
+                StoreName = item.StoreName;
+                StoreAddress = item.StoreAddress;
             }
             catch (Exception ex)
             {

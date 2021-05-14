@@ -121,16 +121,17 @@ namespace Datarynx.ViewModels
 
         private async Task SortItems()
         {
-
-
             Items.Clear();
 
-            var items = await ToDoItemDataRepository.GetItemAsync(SearchCriteria);
+            await Task.Delay(500);
+
+            var tepItems = await ToDoItemDataRepository.GetItemAsync(SearchCriteria);
 
 
             if (SelectedSort == "BDD")
             {
-                var sortedList = items.OrderBy(c => c.StoreName);
+                var sortedList = tepItems.OrderBy(c => c.StoreName);
+
                 foreach (var item in sortedList)
                 {
                     Items.Add(item);
@@ -138,7 +139,7 @@ namespace Datarynx.ViewModels
             }
             else if(SelectedSort=="ASC")
             {
-                var sortedList = items.OrderBy(c => c.ToDoItemID);
+                var sortedList = tepItems.OrderBy(c => c.ToDoItemID);
                 foreach (var item in sortedList)
                 {
                     Items.Add(item);
@@ -147,7 +148,7 @@ namespace Datarynx.ViewModels
             }
             else if (SelectedSort == "DESC")
             {
-                var sortedList = items.OrderByDescending(c => c.ToDoItemID);
+                var sortedList = tepItems.OrderByDescending(c => c.ToDoItemID);
                 foreach (var item in sortedList)
                 {
                     Items.Add(item);

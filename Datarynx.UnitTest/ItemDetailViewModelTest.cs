@@ -29,7 +29,7 @@ namespace Datarynx.UnitTest
         [Fact]
         public void Verify_Text_Not_Null_Test()
         {
-            _itemsViewModel.Text = "Details View Model";
+            _itemsViewModel.StoreName = "Details View Model";
 
             Assert.NotNull(_itemsViewModel.Title);
 
@@ -38,7 +38,7 @@ namespace Datarynx.UnitTest
         [Fact]
         public void Verify_Description_Not_Null_Test()
         {
-            _itemsViewModel.Description = "Description";
+            _itemsViewModel.StoreAddress = "Description";
 
             Assert.NotNull(_itemsViewModel.Title);
 
