@@ -10,12 +10,9 @@
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center"  >
             <Label Text="{Binding Title}"   VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold"  ></Label>
-
-            <Image Source="greenicon.png"
+             <Image Source="greenicon.png"
                HorizontalOptions="End"
                VerticalOptions="Center" HeightRequest="25"  />
-            <!--#endregion-->
-
         </StackLayout>
       
     </Shell.TitleView>
@@ -26,50 +23,32 @@
    
     <StackLayout>
 
-        <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
+        <StackLayout  Orientation="Horizontal">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                </Grid.RowDefinitions>
+            <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
+                <Label Text=" Sort By" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Start"></Label>
+                <Picker Title="BDD"
+                 x:Name="picker" 
+                             SelectedItem="{Binding SelectedSort}" BackgroundColor="White" FlexLayout.AlignSelf="Center" VerticalOptions="Center" WidthRequest="100 " >
+                    <Picker.Items>
+                        <x:String>BDD</x:String>
+                        <x:String>ASC</x:String>
+                        <x:String>DESC</x:String>
+                    </Picker.Items>
+                </Picker>
 
-                <Grid.ColumnDefinitions>
-
-                    <ColumnDefinition Width="10*" >
-                    </ColumnDefinition>
-                    <ColumnDefinition Width="*">
-                    </ColumnDefinition>
-
-                </Grid.ColumnDefinitions>
-
-                <StackLayout HorizontalOptions="Start" Orientation="Horizontal" Grid.Row="0" Grid.Column="0" >
-
-                    <Label Text=" Sort By" VerticalOptions="Center" FontAttributes="Bold"></Label>
-                    <Picker Title="BDD"
-                 x:Name="picker"
-                 BackgroundColor="LightBlue"
-                    TextColor="White" SelectedItem="{Binding SelectedSort}" VerticalOptions="Center" WidthRequest="100 " >
-                        <Picker.Items>
-                            <x:String>BDD</x:String>
-                            <x:String>ASC</x:String>
-                            <x:String>DESC</x:String>
-                         
-                        </Picker.Items>
-
-                    </Picker>
- 
-
-
-                </StackLayout>
-
-                <Image Source="question.png" Grid.Row="0" Grid.Column="1"
-                
-                   VerticalOptions="Center" HorizontalOptions="End" Margin="5"  />
-            </Grid>
-            
-            
-                    
-
+                <ImageButton  Source="downarrow.png" HeightRequest="25"  WidthRequest="25" BackgroundColor="White" >
+                    <ImageButton.Triggers>
+                        <DataTrigger TargetType="ImageButton" Binding="{Binding SelectedSort}" Value="DESC">
+                           
+                            <Setter Property="Rotation" Value="180"  /> 
+                        </DataTrigger>
+                    </ImageButton.Triggers>
+                </ImageButton>
+            </StackLayout>
+           
+            <Image Source="question.png" Grid.Row="0" Grid.Column="1"
+                   VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="25"  Margin="5" />
         </StackLayout>
         <StackLayout>
             <SearchBar x:Name="searchBar"
@@ -93,9 +72,9 @@
 
                         <DataTemplate>
                             <Frame HasShadow="true" CornerRadius="1"   Padding="10" Margin="5"  VerticalOptions="Center">
-                                
-                                
-                                <StackLayout Padding="10" x:DataType="model1:ToDoItem" BackgroundColor="LightGray">
+
+
+                                <StackLayout Padding="10" x:DataType="model1:ToDoItem" BackgroundColor="{StaticResource GridCardBackGround}">
 
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding WeekNo}" 

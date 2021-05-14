@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Datarynx.Views"
        Title="Datarynx"
+     
        x:Class="Datarynx.AppShell">
 
     <!--
@@ -79,7 +80,11 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-   
+
+    <Shell.FlyoutHeader>
+        <local:HeaderContentView></local:HeaderContentView>
+    </Shell.FlyoutHeader>
+    
     <FlyoutItem Title="To-Do List" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" Title="To-Do List" Icon="icon_feed.png" />
     </FlyoutItem>

@@ -154,4 +154,10 @@
   <ItemGroup>
     <BundleResource Include="Resources\filter.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\downarrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sampleclient.png" />
+  </ItemGroup>
 </Project>
