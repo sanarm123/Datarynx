@@ -7,7 +7,7 @@ IDE: Visual Studio 2019
 
 No Thirdparty tools required to install.
 
-Below Baddges Are For Code Quality And Build
+<h1>Below Badges Are For Code Quality And Build</h1>
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=Datarynx)](https://sonarcloud.io/dashboard?id=Datarynx)
 
