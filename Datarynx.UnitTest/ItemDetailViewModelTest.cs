@@ -31,20 +31,37 @@ namespace Datarynx.UnitTest
         {
             _itemsViewModel.StoreName = "Details View Model";
 
-            Assert.NotNull(_itemsViewModel.Title);
+            Assert.NotNull(_itemsViewModel.StoreName);
 
         }
 
         [Fact]
-        public void Verify_Description_Not_Null_Test()
+        public void Verify_StoreAddres_Not_Null_Test()
         {
             _itemsViewModel.StoreAddress = "Description";
 
-            Assert.NotNull(_itemsViewModel.Title);
+            Assert.NotNull(_itemsViewModel.StoreAddress);
 
         }
 
-   
+        [Theory]
+        [InlineData("Test Store Name")]
+        public void Verify_StoreName_Length_Test(string storeName)
+        {
+            _itemsViewModel.StoreName =storeName;
+
+            Assert.True(_itemsViewModel.StoreName.Length>0);
+
+        }
+
+        [Fact]
+        public void Verify_Id_Not_Null_Test()
+        {
+            _itemsViewModel.ItemId = "1";
+
+            Assert.NotNull(_itemsViewModel.ItemId);
+
+        }
 
     }
 }
