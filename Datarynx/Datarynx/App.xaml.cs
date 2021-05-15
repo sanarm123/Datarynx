@@ -30,9 +30,9 @@ namespace Datarynx
            
             DependencyService.RegisterSingleton<IToDoItemRepository>(new ToDoItemRepository(DependencyService.Get<SqlLiteDatabaseContext>()));
 
+            MainPage = new AppShell(); //.FlyoutIcon.AutomationId== "FlyoutIcon";
 
-
-            MainPage = new AppShell();
+           //  MainPage = "FlyoutIcon";
 
             SetupData();
 

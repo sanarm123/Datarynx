@@ -11,9 +11,13 @@ namespace Datarynx
         public AppShell()
         {
             InitializeComponent();
+
+            FlyoutIcon.AutomationId = "FlyoutIconAutoId";
+            
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
           
         }
+      
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
@@ -14,6 +15,7 @@ namespace Datarynx.UITests
         IApp app;
         Platform platform;
 
+
         public ItemsPageUITest(Platform platform)
         {
             this.platform = platform;
@@ -26,13 +28,34 @@ namespace Datarynx.UITests
         }
 
         [Test]
-        public void ToDoItemsPageIsDisplayed()
+        [Order(1)]
+        [Category("To-Do list Tests")]
+        public void ItemsPageDisplayeTest()
         {
-          
-            app.Query(c => c.Marked("SortedBy"));
 
             app.Screenshot("To Do List Screen.");
 
+            app.Query(c => c.Marked("SortedBy"));
+
+            app.Tap("RefreshButton");
+
+            Task.Delay(2000);
+
+            app.Tap("FilterButton");
+
+            Assert.IsTrue(true);
+        }
+
+        [Test]
+        [Order(2)]
+        [Category("Falyout menu Tests")]
+        public void LogOutTest()
+        {
+            app.Tap(x => x.Marked("FlyoutIconAutoId"));
+
+            app.Screenshot("Flyout Screen");
+
+            app.Tap(x => x.Marked("LogoutButton"));
 
             Assert.IsTrue(true);
         }

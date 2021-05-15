@@ -18,8 +18,8 @@
     </Shell.TitleView>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem  IconImageSource="refresh.png"  Priority="0" Order="Primary" Command="{Binding LoadItemsCommand}"  />
-        <ToolbarItem IconImageSource="filter.png" Priority="1" Order="Primary" Command="{Binding ShowSearchBar}" />
+        <ToolbarItem  IconImageSource="refresh.png" AutomationId="RefreshButton"  Priority="0" Order="Primary" Command="{Binding LoadItemsCommand}"  />
+        <ToolbarItem IconImageSource="filter.png" AutomationId="FilterButton" Priority="1" Order="Primary" Command="{Binding ShowSearchBar}" />
     </ContentPage.ToolbarItems>
    
     <StackLayout>

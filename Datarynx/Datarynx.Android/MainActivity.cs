@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Xamarin.Forms.Platform.Android;
 
 namespace Datarynx.Droid
 {
@@ -24,5 +25,8 @@ namespace Datarynx.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+      
+
     }
 }
