@@ -20,7 +20,14 @@ namespace Datarynx.LocalDB.Repository
      
         public Task<int> AddItemAsync(ToDoItem item)
         {
+           
+            if (item is null)
+            {
+                throw new NullReferenceException("Null value passsed");
+            }
+
             return _sqlLiteDatabaseContext.Connection.InsertAsync(item);
+
         }
 
 
