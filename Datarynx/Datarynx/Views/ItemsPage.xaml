@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Datarynx.Views.ItemsPage"
-               Title="{Binding Title}"
-             xmlns:local="clr-namespace:Datarynx.ViewModels"  
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Datarynx.ViewModels"
              xmlns:model1="clr-namespace:Datarynx.LocalDB.Models;assembly=Datarynx.LocalDB"
              x:Name="BrowseItemsPage"  >
+
 
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center"  >

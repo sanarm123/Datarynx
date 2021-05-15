@@ -3,45 +3,49 @@ using Datarynx.LocalDB.DBContext;
 using Datarynx.LocalDB.Models;
 using Datarynx.LocalDB.Repository;
 using Datarynx.Models;
-using Datarynx.Services;
+using Datarynx.ViewModels;
 using Datarynx.Views;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
+
+
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Datarynx
 {
     [ExcludeFromCodeCoverage]
     public partial class App : Application
     {
-
+       
         public  App()
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
             DependencyService.Register<SqlLiteDatabaseContext>();
-            
-            //Resolve DBContext
-            var dataRepository =DependencyService.Get<SqlLiteDatabaseContext>();
 
             //Register Repository
-            DependencyService.RegisterSingleton<IToDoItemRepository>(new ToDoItemRepository(dataRepository));
+           
+            DependencyService.RegisterSingleton<IToDoItemRepository>(new ToDoItemRepository(DependencyService.Get<SqlLiteDatabaseContext>()));
+
+
 
             MainPage = new AppShell();
 
-            var itemsReository= DependencyService.Get<IToDoItemRepository>();
+            SetupData();
 
-            
-            var items= itemsReository.GetItemAsync(string.Empty).Result;
+        }
 
+        private static void SetupData()
+        {
+            var itemsReository = DependencyService.Get<IToDoItemRepository>();
 
-            if (items.Count==0) {
+            var items = itemsReository.GetItemAsync(string.Empty).Result;
+
+            if (items.Count == 0)
+            {
 
                 string jsonFileName = "todolistjson.json";
                 var assembly = typeof(ItemsPage).GetTypeInfo().Assembly;
@@ -50,30 +54,26 @@ namespace Datarynx
                 {
                     var jsonString = reader.ReadToEnd();
 
-                 var RootObject = JsonConvert.DeserializeObject<Root>(jsonString);
+                    var RootObject = JsonConvert.DeserializeObject<Root>(jsonString);
 
 
                     foreach (var item in RootObject.ListItems)
                     {
                         itemsReository.AddItemAsync(new ToDoItem()
                         {
-                             WeekNo=item.WeekNo,
-                             StoreName=item.StoreName,
-                             TaskStatus=item.TaskStatus,
-                             CodingType=item.CodingType,
-                             CreateDate=DateTime.Now,
-                             StoreAddress=item.StoreAddress,
-                             WeekDate=item.WeekDate
+                            WeekNo = item.WeekNo,
+                            StoreName = item.StoreName,
+                            TaskStatus = item.TaskStatus,
+                            CodingType = item.CodingType,
+                            CreateDate = DateTime.Now,
+                            StoreAddress = item.StoreAddress,
+                            WeekDate = item.WeekDate
                         });
 
                     }
 
                 }
             }
-
-          
-
-
         }
 
         /// <summary>

@@ -18,6 +18,8 @@ namespace Datarynx.UnitTest
     public class ItemDetailViewModelTest
     {
         private ItemDetailViewModel _itemsViewModel;
+
+        private readonly Mock<IToDoItemRepository> itodoRepo = new Mock<IToDoItemRepository>();
         public ItemDetailViewModelTest()
         {
             var platformServicesFake = A.Fake<IPlatformServices>();

@@ -1,4 +1,5 @@
 ﻿using Datarynx.LocalDB.Models;
+using Datarynx.LocalDB.Repository;
 using Datarynx.Models;
 using Datarynx.Views;
 using System;
@@ -12,6 +13,22 @@ namespace Datarynx.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
+        private readonly IToDoItemRepository _toDoItemDataRepository;
+
+        public ItemsViewModel(IToDoItemRepository toDoItemDataRepository = null) 
+        {
+            _toDoItemDataRepository = toDoItemDataRepository==null?DependencyService.Get<IToDoItemRepository>(): toDoItemDataRepository;
+
+            Title = "To-Do List";
+            Items = new ObservableCollection<ToDoItem>();
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
+            ShowSearchBar = new Command(OnSearchBarcClicked);
+            ItemTapped = new Command<ToDoItem>(OnItemSelected);
+
+        }
+
+
         private ToDoItem _selectedItem;
 
         public ObservableCollection<ToDoItem> Items { get; }
@@ -58,16 +75,7 @@ namespace Datarynx.ViewModels
         }
 
        
-        public ItemsViewModel()
-        {
-            Title = "To-Do List";
-            Items = new ObservableCollection<ToDoItem>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            ShowSearchBar = new Command(OnSearchBarcClicked);
-            ItemTapped = new Command<ToDoItem>(OnItemSelected);
-          
-        }
+     
 
         private bool? _showSearchBarSection = false;
         public bool? ShowSearchBarSection
@@ -125,41 +133,38 @@ namespace Datarynx.ViewModels
 
             await Task.Delay(500);
 
-            var tepItems = await ToDoItemDataRepository.GetItemAsync(SearchCriteria);
+            var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
 
 
             if (SelectedSort == "BDD")
-            {
-                var sortedList = tepItems.OrderBy(c => c.StoreName);
-
-                foreach (var item in sortedList)
-                {
-                    Items.Add(item);
-                }
+            { 
+                AddItems(tepItems == null ? null : tepItems.OrderBy(c => c.StoreName));
             }
             else if(SelectedSort=="ASC")
-            {
-                var sortedList = tepItems.OrderBy(c => c.ToDoItemID);
-                foreach (var item in sortedList)
-                {
-                    Items.Add(item);
-                }
+            {  
+                AddItems(tepItems == null ? null : tepItems.OrderBy(c => c.StoreName));
 
             }
             else if (SelectedSort == "DESC")
             {
-                var sortedList = tepItems.OrderByDescending(c => c.ToDoItemID);
-                foreach (var item in sortedList)
-                {
-                    Items.Add(item);
-                }
+                AddItems(tepItems == null ? null : tepItems.OrderByDescending(c => c.ToDoItemID));
 
             }
            
 
         }
 
-
+        private void AddItems(IOrderedEnumerable<ToDoItem> sortedList)
+        {
+            if (sortedList != null)
+            {
+                foreach (var item in sortedList)
+                {
+                    Items.Add(item);
+                }
+            }
+            
+        }
 
         public void OnAppearing()
         {

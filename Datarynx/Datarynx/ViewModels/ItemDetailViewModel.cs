@@ -1,4 +1,5 @@
-﻿using Datarynx.Models;
+﻿using Datarynx.LocalDB.Repository;
+using Datarynx.Models;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -6,9 +7,21 @@ using Xamarin.Forms;
 
 namespace Datarynx.ViewModels
 {
+
+    //public IToDoItemRepository ToDoItemDataRepository => DependencyService.Get<IToDoItemRepository>();
+
+
+
+
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
+        private readonly IToDoItemRepository _toDoItemDataRepository;
+
+        public ItemDetailViewModel(IToDoItemRepository toDoItemDataRepository = null)
+        {
+            _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
+        }
 
         private string itemId;
         private string storeName;
@@ -47,7 +60,7 @@ namespace Datarynx.ViewModels
             try
             {
                 Title = "Details";
-                var item = await ToDoItemDataRepository.GetItemAsync(int.Parse(itemId));
+                var item = await _toDoItemDataRepository.GetItemAsync(int.Parse(itemId));
 
                 Id = item.ToDoItemID.ToString();
                 StoreName = item.StoreName;
