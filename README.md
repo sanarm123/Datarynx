@@ -9,7 +9,7 @@ XAMARIN.FORMS Version 5.0.0.2012 Nuget Package has been used for forms.
 
 To Run UI Test
 
-1.Run App (Android,iOS on Simulator)
+1.Run App (Android,iOS on Simulator) <br>
 2.Run Test UI from Test window
 
 
