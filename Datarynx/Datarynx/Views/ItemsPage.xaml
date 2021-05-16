@@ -28,7 +28,7 @@
             <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
                 <Label Text=" Sort By" AutomationId="SortedBy" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Start"></Label>
                 <Picker Title="Select Label"
-                 x:Name="picker" ItemsSource="{Binding PickerElemetsCollection}" ItemDisplayBinding="{Binding PropertyDisplayName}" SelectedItem="{Binding SelectedSort}" BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" VerticalOptions="Center" WidthRequest="100 " >
+                 x:Name="picker" ItemsSource="{Binding PickerElemetsCollection}" ItemDisplayBinding="{Binding PropertyDisplayName}" SelectedItem="{Binding SelectedSort, Mode=OneWayToSource}" BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" VerticalOptions="Center" WidthRequest="100 " >
                    
                 </Picker>
 
@@ -69,6 +69,7 @@
                                     <Label Text="{Binding WeekDate}"  FontSize="Small" FontAttributes="Bold" />
                                     <Label Text="{Binding StoreName}"  FontSize="Medium" FontAttributes="Bold" />
                                     <Label Text="{Binding StoreAddress}" FontSize="Medium" FontAttributes="Bold"/>
+                                    <Label Text="{Binding TaskStatus}" FontSize="Medium" FontAttributes="Bold"/>
                                     <StackLayout Orientation="Horizontal">
 
                                  <Label Text="{Binding CodingType}" LineBreakMode="NoWrap" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start" VerticalTextAlignment="Center"/>

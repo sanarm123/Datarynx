@@ -83,12 +83,9 @@ namespace Datarynx.ViewModels
         }
 
         private void FillItems()
-        {
-            Items.Clear();
-          
+        { 
             Task.Run(async () =>
             {
-                await Task.Delay(500);
                 await ExecuteLoadItemsCommand();
             });
         }
@@ -99,7 +96,7 @@ namespace Datarynx.ViewModels
             get => _selectedSort;
             set
             {
-                var currentSort = _selectedSort;
+                //var currentSort = _selectedSort;
                 SetProperty(ref _selectedSort, value);
 
                 FillItems();
@@ -107,7 +104,7 @@ namespace Datarynx.ViewModels
             }
         }
 
-        private bool _isAscending =true;
+        private bool _isAscending;
         public bool IsAscending
         {
             get => _isAscending;
@@ -186,16 +183,30 @@ namespace Datarynx.ViewModels
 
         private async Task SortItems()
         {
-        
-            await Task.Delay(1000);
 
-            var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
 
-            Items.Clear();
-            foreach (var item in LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort!=null? SelectedSort.PropertName: PickerElemetsCollection[0].PropertName, IsAscending))
+            try
             {
-                Items.Add(item);
+                await Task.Delay(2000);
+                Items.Clear();
+
+                var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
+
+                if (tepItems!=null)
+                {
+                    foreach (var item in LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort != null ? SelectedSort.PropertName : PickerElemetsCollection[0].PropertName, IsAscending))
+                    {
+                        Items.Add(item);
+                    }
+                }
+                
             }
+            catch (Exception ex)
+            {
+
+                var exceptionDetail = ex.Message;
+            }
+          
 
 
         }

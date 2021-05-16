@@ -16,28 +16,24 @@ using Xamarin.Forms;
 
 namespace Datarynx
 {
-    [ExcludeFromCodeCoverage]
+  
     public partial class App : Application
     {
-       
+        [ExcludeFromCodeCoverage]
         public  App()
         {
             InitializeComponent();
 
             DependencyService.Register<SqlLiteDatabaseContext>();
 
-            //Register Repository
-           
             DependencyService.RegisterSingleton<IToDoItemRepository>(new ToDoItemRepository(DependencyService.Get<SqlLiteDatabaseContext>()));
 
-            MainPage = new AppShell(); //.FlyoutIcon.AutomationId== "FlyoutIcon";
-
-           //  MainPage = "FlyoutIcon";
-
+            MainPage = new AppShell();
             SetupData();
 
         }
 
+        [ExcludeFromCodeCoverage]
         private static void SetupData()
         {
             var itemsReository = DependencyService.Get<IToDoItemRepository>();

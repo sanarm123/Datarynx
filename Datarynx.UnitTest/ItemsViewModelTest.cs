@@ -1,3 +1,4 @@
+using Datarynx.Helpers;
 using Datarynx.LocalDB.Models;
 using Datarynx.LocalDB.Repository;
 using Datarynx.ViewModels;
@@ -49,13 +50,15 @@ namespace Datarynx.UnitTest
 
             List<ToDoItem> items = new List<ToDoItem>();
 
-            items.Add(new LocalDB.Models.ToDoItem());
-            items.Add(new LocalDB.Models.ToDoItem());
-            items.Add(new LocalDB.Models.ToDoItem());
+            items.Add(new LocalDB.Models.ToDoItem() { StoreName="Test" });
+            items.Add(new LocalDB.Models.ToDoItem() { StoreName="Test2" });
+            items.Add(new LocalDB.Models.ToDoItem() { StoreName="Test3" });
 
             _toDoItemRepository.Setup(x => x.GetItemAsync("")).ReturnsAsync(items);
 
+          
             var RESULT = _toDoItemRepository.Object.GetItemAsync("");
+
             //Act
             _itemsViewModel.LoadItemsCommand.Execute(null);
 
