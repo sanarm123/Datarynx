@@ -15,6 +15,9 @@ To Run UI Test
 
 No Thirdparty tools required to install.
 
+Filter and sorting functionalities has been implemented.(Click on picker for select property then click on up and down arrow buttons for sorting).
+
+
 <h1>Below Badges Are For Code Quality And Build</h1>
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=Datarynx)](https://sonarcloud.io/dashboard?id=Datarynx)
