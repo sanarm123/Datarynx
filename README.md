@@ -5,6 +5,14 @@
 
 IDE: Visual Studio 2019 
 
+XAMARIN.FORMS Version 5.0.0.2012 Nuget Package has been used for forms and AppShell Feature has been used for FlyoutMenu.
+
+To Run UI Test
+
+1.Run App (Android,iOS on Simulator) <br>
+2.Run Test UI from Test window
+
+
 No Thirdparty tools required to install.
 
 <h1>Below Badges Are For Code Quality And Build</h1>
