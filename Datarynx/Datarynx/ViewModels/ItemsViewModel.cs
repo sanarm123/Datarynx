@@ -17,6 +17,11 @@ namespace Datarynx.ViewModels
     {
         private readonly IToDoItemRepository _toDoItemDataRepository;
         private ToDoItem _selectedItem;
+        private string _searchCriteria;
+        private PickerElement _selectedSort;
+        private bool? _showSearchBarSection = false;
+        private bool _isAscending;
+
         public ObservableCollection<PickerElement> PickerElemetsCollection { get; }
         public ObservableCollection<ToDoItem> Items { get; }
 
@@ -25,6 +30,7 @@ namespace Datarynx.ViewModels
         public Command ShowSearchBar { get; }
         public Command<ToDoItem> ItemTapped { get; }
 
+      
         public ItemsViewModel(IToDoItemRepository toDoItemDataRepository = null)
         {
             _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
@@ -69,13 +75,13 @@ namespace Datarynx.ViewModels
         }
 
 
-        private string searchCriteria;
+       
         public string SearchCriteria
         {
-            get =>searchCriteria;
+            get => _searchCriteria;
             set
             {
-                SetProperty(ref searchCriteria, value);
+                SetProperty(ref _searchCriteria, value);
 
               
                 FillItems();
@@ -90,7 +96,6 @@ namespace Datarynx.ViewModels
             });
         }
 
-        private PickerElement _selectedSort;
         public PickerElement SelectedSort
         {
             get => _selectedSort;
@@ -104,7 +109,7 @@ namespace Datarynx.ViewModels
             }
         }
 
-        private bool _isAscending;
+      
         public bool IsAscending
         {
             get => _isAscending;
@@ -117,7 +122,7 @@ namespace Datarynx.ViewModels
         }
 
 
-        private bool? _showSearchBarSection = false;
+      
         public bool? ShowSearchBarSection
         {
             get => _showSearchBarSection;
@@ -183,8 +188,6 @@ namespace Datarynx.ViewModels
 
         private async Task SortItems()
         {
-
-
             try
             {
                 await Task.Delay(2000);
@@ -206,9 +209,6 @@ namespace Datarynx.ViewModels
 
                 var exceptionDetail = ex.Message;
             }
-          
-
-
         }
 
         private void AddItems(IOrderedEnumerable<ToDoItem> sortedList)

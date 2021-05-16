@@ -5,45 +5,44 @@ using Xamarin.Forms;
 
 namespace Datarynx.ViewModels
 {
-
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
         private readonly IToDoItemRepository _toDoItemDataRepository;
+        private string _itemId;
+        private string _storeName;
+        private string _storeAddress;
 
         public ItemDetailViewModel(IToDoItemRepository toDoItemDataRepository = null)
         {
             _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
         }
 
-        private string itemId;
-        private string storeName;
-      
-        private string storeAddress;
+   
         public string Id { get; set; }
 
         public string StoreName
         {
-            get => storeName;
-            set => SetProperty(ref storeName, value);
+            get => _storeName;
+            set => SetProperty(ref _storeName, value);
         }
 
         
         public string StoreAddress
         {
-            get => storeAddress;
-            set => SetProperty(ref storeAddress, value);
+            get => _storeAddress;
+            set => SetProperty(ref _storeAddress, value);
         }
 
         public string ItemId
         {
             get
             {
-                return itemId;
+                return _itemId;
             }
             set
             {
-                itemId = value;
+                _itemId = value;
                 LoadItemId(value);
             }
         }
