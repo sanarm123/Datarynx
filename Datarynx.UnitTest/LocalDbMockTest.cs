@@ -36,5 +36,25 @@ namespace Datarynx.UnitTest
 
         }
 
+        [Fact]
+        public async Task AddItemAsync_ShouldReturnId_WhenItem_TestAsync()
+        {
+
+            ToDoItem toDoItem = new ToDoItem();
+            toDoItem.ToDoItemID = 12;
+            toDoItem.StoreName = "Store Test";
+
+            //Setup
+            _toDoItemRepository.Setup(c => c.AddItemAsync(toDoItem)).ReturnsAsync(10);
+
+            //Act
+            var reslt = await _toDoItemRepository.Object.AddItemAsync(toDoItem);
+
+            //Assert
+            Assert.True(reslt > 0);
+
+        }
+        
+
     }
 }

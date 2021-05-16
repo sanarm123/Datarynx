@@ -61,7 +61,7 @@ namespace Datarynx.ViewModels
 
         private void ExecuteSortCommand()
         {
-            if (IsAscending == true)
+            if (IsAscending)
             {
                 IsAscending = false;
             }
@@ -71,7 +71,6 @@ namespace Datarynx.ViewModels
             }
 
             FillItems();
-
         }
 
 

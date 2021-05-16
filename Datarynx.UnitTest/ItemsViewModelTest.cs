@@ -93,10 +93,32 @@ namespace Datarynx.UnitTest
 
 
         [Fact]
-        public void OnSortCpmmanClicked_Test()
+        public void OnSortCommandClicked_Test()
         {
+            _itemsViewModel.SelectedSort = new Helpers.PickerElement()
+            {
+                PropertyDisplayName = "StoreName",
+                PropertName = "StoreName"
+            };
+            _itemsViewModel.IsAscending = true;
+            _itemsViewModel.Items.Add(new ToDoItem());
+            _itemsViewModel.Items.Add(new ToDoItem());
+            _itemsViewModel.Items.Add(new ToDoItem());
 
-            var itemsViewModel = new ItemsViewModel();
+            List<ToDoItem> items = new List<ToDoItem>();
+
+            items.Add(new LocalDB.Models.ToDoItem() { StoreName = "Test" });
+            items.Add(new LocalDB.Models.ToDoItem() { StoreName = "Test2" });
+            items.Add(new LocalDB.Models.ToDoItem() { StoreName = "Test3" });
+
+            _toDoItemRepository.Setup(x => x.GetItemAsync("")).ReturnsAsync(items);
+
+
+            var RESULT = _toDoItemRepository.Object.GetItemAsync("");
+
+           
+            _itemsViewModel.SortCommand.Execute(null);
+
             Assert.NotNull(_itemsViewModel.SortCommand);
         }
 
