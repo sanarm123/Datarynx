@@ -2,10 +2,12 @@
 using Datarynx.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Xamarin.Forms;
 
 namespace Datarynx
 {
+    [ExcludeFromCodeCoverage]
     public partial class AppShell : Xamarin.Forms.Shell
     {
         public AppShell()
@@ -13,9 +15,7 @@ namespace Datarynx
             InitializeComponent();
 
             FlyoutIcon.AutomationId = "FlyoutIconAutoId";
-            
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-          
         }
       
 

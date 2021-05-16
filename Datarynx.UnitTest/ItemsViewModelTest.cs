@@ -37,6 +37,13 @@ namespace Datarynx.UnitTest
         }
 
         [Fact]
+        public void OnSearchClick_Not_Null_Test()
+        {
+
+            Assert.NotNull(_itemsViewModel.ShowSearchBar);
+        }
+
+        [Fact]
         public void LoadItemsCommand_Not_Null_Execute_Test()
         {
             //Arrange

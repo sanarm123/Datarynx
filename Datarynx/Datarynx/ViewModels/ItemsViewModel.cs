@@ -136,7 +136,6 @@ namespace Datarynx.ViewModels
 
         private void OnSearchBarcClicked(object obj)
         {
-            // throw new NotImplementedException();
 
             if (ShowSearchBarSection == false)
             {
