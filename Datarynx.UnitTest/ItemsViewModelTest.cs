@@ -39,7 +39,10 @@ namespace Datarynx.UnitTest
         public void LoadItemsCommand_Not_Null_Execute_Test()
         {
             //Arrange
-            _itemsViewModel.SelectedSort = "BDD";
+            _itemsViewModel.SelectedSort =new Helpers.PickerElement() { 
+                PropertyDisplayName="StoreName",
+                 PropertName ="StoreName" 
+            };
             _itemsViewModel.Items.Add(new ToDoItem());
             _itemsViewModel.Items.Add(new ToDoItem());
             _itemsViewModel.Items.Add(new ToDoItem());

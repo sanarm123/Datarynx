@@ -27,23 +27,21 @@
         <StackLayout  Orientation="Horizontal">
             <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
                 <Label Text=" Sort By" AutomationId="SortedBy" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Start"></Label>
-                <Picker Title="BDD"
-                 x:Name="picker" SelectedItem="{Binding SelectedSort}" BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" VerticalOptions="Center" WidthRequest="100 " >
-                    <Picker.Items>
-                        <x:String>BDD</x:String>
-                        <x:String>ASC</x:String>
-                        <x:String>DESC</x:String>
-                    </Picker.Items>
+                <Picker Title="Select Label"
+                 x:Name="picker" ItemsSource="{Binding PickerElemetsCollection}" ItemDisplayBinding="{Binding PropertyDisplayName}" SelectedItem="{Binding SelectedSort}" BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" VerticalOptions="Center" WidthRequest="100 " >
+                   
                 </Picker>
 
-                <ImageButton  Source="downarrow.png" HeightRequest="25"  WidthRequest="25" BackgroundColor="White" >
+                <ImageButton  Source="downarrow.png"  HeightRequest="25" Command="{Binding SortCommand}"   WidthRequest="25" BackgroundColor="White" >
                     <ImageButton.Triggers>
-                        <DataTrigger TargetType="ImageButton" Binding="{Binding SelectedSort}" Value="DESC">
-                           
+                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsAscending, Mode=OneWay}" Value="false">
                             <Setter Property="Rotation" Value="180"  /> 
                         </DataTrigger>
                     </ImageButton.Triggers>
                 </ImageButton>
+
+               
+                
             </StackLayout>
            
             <Image Source="question.png" Grid.Row="0" Grid.Column="1"

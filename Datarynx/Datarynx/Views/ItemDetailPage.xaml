@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Datarynx.Views.ItemDetailPage"
-                xmlns:local="clr-namespace:Datarynx.ViewModels"  
              Title="{Binding Title}">
-
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"
+                            IconOverride="hamburger.png" />
+    </Shell.BackButtonBehavior>
     <StackLayout Spacing="20" Padding="15">
         <Label Text="Store Name:" FontSize="Medium" FontAttributes="Bold" />
         <Label Text="{Binding StoreName}" FontSize="Small"/>

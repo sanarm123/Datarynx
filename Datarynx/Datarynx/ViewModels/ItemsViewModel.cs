@@ -1,9 +1,11 @@
-﻿using Datarynx.LocalDB.Models;
+﻿using Datarynx.Helpers;
+using Datarynx.LocalDB.Models;
 using Datarynx.LocalDB.Repository;
-using Datarynx.Models;
 using Datarynx.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,29 +16,58 @@ namespace Datarynx.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private readonly IToDoItemRepository _toDoItemDataRepository;
+        private ToDoItem _selectedItem;
+        public ObservableCollection<PickerElement> PickerElemetsCollection { get; }
+        public ObservableCollection<ToDoItem> Items { get; }
 
-        public ItemsViewModel(IToDoItemRepository toDoItemDataRepository = null) 
+        public Command LoadItemsCommand { get; }
+        public Command SortCommand { get; }
+        public Command ShowSearchBar { get; }
+        public Command<ToDoItem> ItemTapped { get; }
+
+        public ItemsViewModel(IToDoItemRepository toDoItemDataRepository = null)
         {
-            _toDoItemDataRepository = toDoItemDataRepository==null?DependencyService.Get<IToDoItemRepository>(): toDoItemDataRepository;
+            _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
 
             Title = "To-Do List";
             Items = new ObservableCollection<ToDoItem>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            PickerElemetsCollection = new ObservableCollection<PickerElement>();
 
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            SortCommand = new Command(() => ExecuteSortCommand());
             ShowSearchBar = new Command(OnSearchBarcClicked);
             ItemTapped = new Command<ToDoItem>(OnItemSelected);
+           
+            SetSortPickerColums();
 
         }
 
+        private void SetSortPickerColums()
+        {
+            var info = TypeDescriptor.GetProperties(typeof(ToDoItem)).Cast<PropertyDescriptor>().ToDictionary(p => p.Name, p => p.DisplayName);
 
-        private ToDoItem _selectedItem;
+            foreach (var item in info)
+            {
+                PickerElemetsCollection.Add(new PickerElement() { PropertName = item.Key, PropertyDisplayName = item.Value });
 
-        public ObservableCollection<ToDoItem> Items { get; }
-        public Command LoadItemsCommand { get; }
+            }
+        }
 
-        public Command ShowSearchBar { get; }
+        private void ExecuteSortCommand()
+        {
+            if (IsAscending == true)
+            {
+                IsAscending = false;
+            }
+            else
+            {
+                IsAscending = true;
+            }
 
-        public Command<ToDoItem> ItemTapped { get; }
+            FillItems();
+
+        }
+
 
         private string searchCriteria;
         public string SearchCriteria
@@ -44,8 +75,9 @@ namespace Datarynx.ViewModels
             get =>searchCriteria;
             set
             {
-
                 SetProperty(ref searchCriteria, value);
+
+              
                 FillItems();
             }
         }
@@ -53,29 +85,40 @@ namespace Datarynx.ViewModels
         private void FillItems()
         {
             Items.Clear();
+          
             Task.Run(async () =>
             {
+                await Task.Delay(500);
                 await ExecuteLoadItemsCommand();
             });
         }
 
-        private string _selectedSort="BDD";
-        public string SelectedSort
+        private PickerElement _selectedSort;
+        public PickerElement SelectedSort
         {
             get => _selectedSort;
             set
             {
                 var currentSort = _selectedSort;
                 SetProperty(ref _selectedSort, value);
-                if (_selectedSort != currentSort)
-                {
-                    FillItems();
-                }
+
+                FillItems();
+
             }
         }
 
-       
-     
+        private bool _isAscending =true;
+        public bool IsAscending
+        {
+            get => _isAscending;
+            set
+            {
+             
+                SetProperty(ref _isAscending, value);
+               
+            }
+        }
+
 
         private bool? _showSearchBarSection = false;
         public bool? ShowSearchBarSection
@@ -127,30 +170,33 @@ namespace Datarynx.ViewModels
             }
         }
 
+        public IQueryable<ToDoItem> GetItems(List<ToDoItem> list)
+        {
+            try
+            {
+                return list.AsQueryable();
+            }
+            catch (Exception ex)
+            {
+                return null;
+               // throw;
+            }
+           
+        }
+
         private async Task SortItems()
         {
-            Items.Clear();
-
-            await Task.Delay(500);
+        
+            await Task.Delay(1000);
 
             var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
 
-
-            if (SelectedSort == "BDD")
-            { 
-                AddItems(tepItems == null ? null : tepItems.OrderBy(c => c.StoreName));
-            }
-            else if(SelectedSort=="ASC")
-            {  
-                AddItems(tepItems == null ? null : tepItems.OrderBy(c => c.StoreName));
-
-            }
-            else if (SelectedSort == "DESC")
+            Items.Clear();
+            foreach (var item in LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort!=null? SelectedSort.PropertName: PickerElemetsCollection[0].PropertName, IsAscending))
             {
-                AddItems(tepItems == null ? null : tepItems.OrderByDescending(c => c.ToDoItemID));
-
+                Items.Add(item);
             }
-           
+
 
         }
 
@@ -187,9 +233,8 @@ namespace Datarynx.ViewModels
         {
             if (item == null)
                 return;
-
-            // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.ToDoItemID}");
         }
+
     }
 }

@@ -1,17 +1,10 @@
 ﻿using Datarynx.LocalDB.Repository;
-using Datarynx.Models;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Datarynx.ViewModels
 {
-
-    //public IToDoItemRepository ToDoItemDataRepository => DependencyService.Get<IToDoItemRepository>();
-
-
-
 
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel

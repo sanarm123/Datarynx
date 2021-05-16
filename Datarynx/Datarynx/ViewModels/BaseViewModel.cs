@@ -1,14 +1,7 @@
-﻿
-using Datarynx.LocalDB.DBContext;
-using Datarynx.LocalDB.Models;
-using Datarynx.LocalDB.Repository;
-using Datarynx.Models;
-using Datarynx.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace Datarynx.ViewModels
 {
