@@ -46,18 +46,18 @@ namespace Datarynx.UITests
             Assert.IsTrue(true);
         }
 
-        [Test]
-        [Order(2)]
-        [Category("Falyout menu Tests")]
-        public void LogOutTest()
-        {
-            app.Tap(x => x.Marked("FlyoutIconAutoId"));
+        //[Test]
+        //[Order(2)]
+        //[Category("Falyout menu Tests")]
+        //public void LogOutTest()
+        //{
+        //    app.Tap(x => x.Marked("FlyoutIconAutoId"));
 
-            app.Screenshot("Flyout Screen");
+        //    app.Screenshot("Flyout Screen");
 
-            app.Tap(x => x.Marked("LogoutButton"));
+        //    app.Tap(x => x.Marked("LogoutButton"));
 
-            Assert.IsTrue(true);
-        }
+        //    Assert.IsTrue(true);
+        //}
     }
 }

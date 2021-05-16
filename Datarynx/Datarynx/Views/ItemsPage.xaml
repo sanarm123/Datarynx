@@ -50,54 +50,53 @@
         
         <StackLayout>
             <SearchBar x:Name="searchBar"  Text="{Binding SearchCriteria}" SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" IsVisible="{Binding ShowSearchBarSection}"/>
-            <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-                <CollectionView x:Name="ItemsListView"
+            <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 SelectionMode="None">
 
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical"/>
-                    </CollectionView.ItemsLayout>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
 
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame HasShadow="true" CornerRadius="1"   Padding="10" Margin="5"  VerticalOptions="Center">
-                                 <StackLayout Padding="10" x:DataType="model1:ToDoItem" BackgroundColor="{StaticResource GridCardBackGround}">
-                                    <StackLayout Orientation="Horizontal" BackgroundColor="Transparent">
-                                        <Label Text="{Binding WeekNo}"  FontSize="Small"  FontAttributes="Bold" />
-                                    </StackLayout>
-                                    <Label Text="{Binding WeekDate}"  FontSize="Small" FontAttributes="Bold" />
-                                    <Label Text="{Binding StoreName}"  FontSize="Medium" FontAttributes="Bold" />
-                                    <Label Text="{Binding StoreAddress}" FontSize="Medium" FontAttributes="Bold"/>
-                                    <Label Text="{Binding TaskStatus}" FontSize="Medium" FontAttributes="Bold"/>
-                                    <StackLayout Orientation="Horizontal">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame HasShadow="true" CornerRadius="1"   Padding="10" Margin="5"  VerticalOptions="Center">
+                            <StackLayout Padding="10" x:DataType="model1:ToDoItem" BackgroundColor="{StaticResource GridCardBackGround}">
+                                <StackLayout Orientation="Horizontal" BackgroundColor="Transparent">
+                                    <Label Text="{Binding WeekNo}"  FontSize="Small"  FontAttributes="Bold" />
+                                </StackLayout>
+                                <Label Text="{Binding WeekDate}"  FontSize="Small" FontAttributes="Bold" />
+                                <Label Text="{Binding StoreName}"  FontSize="Medium" FontAttributes="Bold" />
+                                <Label Text="{Binding StoreAddress}" FontSize="Medium" FontAttributes="Bold"/>
+                                <Label Text="{Binding TaskStatus}" FontSize="Medium" FontAttributes="Bold"/>
+                                <Label Text="{Binding ToDoItemID}" FontSize="Medium" FontAttributes="Bold"/>
+                                <StackLayout Orientation="Horizontal">
 
-                                 <Label Text="{Binding CodingType}" LineBreakMode="NoWrap" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
+                                    <Label Text="{Binding CodingType}" LineBreakMode="NoWrap" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
 
-                                 <Button  Text="Start Audit"  FontSize="24" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}"
+                                    <Button  Text="Start Audit"  FontSize="24" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}"
                                                HorizontalOptions="EndAndExpand"  >
-                                            <Button.Triggers>
-                                                <DataTrigger TargetType="Button" Binding="{Binding TaskStatus}" Value="In-Progress">
-                                                    <Setter Property="IsVisible" Value="False"/>
-                                                </DataTrigger>
-                                            </Button.Triggers>
-                                        </Button>
-                                    </StackLayout>
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding TaskStatus}" Value="In-Progress">
+                                                <Setter Property="IsVisible" Value="False"/>
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                </StackLayout>
 
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer 
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
                                 CommandParameter="{Binding .}">
-                                        </TapGestureRecognizer>
-                                    </StackLayout.GestureRecognizers>
-                                    
-                                </StackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </StackLayout>
 </ContentPage>

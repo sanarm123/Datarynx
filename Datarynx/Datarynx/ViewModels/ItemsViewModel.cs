@@ -30,7 +30,7 @@ namespace Datarynx.ViewModels
         public Command ShowSearchBar { get; }
         public Command<ToDoItem> ItemTapped { get; }
 
-      
+
         public ItemsViewModel(IToDoItemRepository toDoItemDataRepository = null)
         {
             _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
@@ -43,7 +43,7 @@ namespace Datarynx.ViewModels
             SortCommand = new Command(() => ExecuteSortCommand());
             ShowSearchBar = new Command(OnSearchBarcClicked);
             ItemTapped = new Command<ToDoItem>(OnItemSelected);
-           
+
             SetSortPickerColums();
 
         }
@@ -74,21 +74,19 @@ namespace Datarynx.ViewModels
         }
 
 
-       
+
         public string SearchCriteria
         {
             get => _searchCriteria;
             set
             {
                 SetProperty(ref _searchCriteria, value);
-
-              
                 FillItems();
             }
         }
 
         private void FillItems()
-        { 
+        {
             Task.Run(async () =>
             {
                 await ExecuteLoadItemsCommand();
@@ -108,27 +106,27 @@ namespace Datarynx.ViewModels
             }
         }
 
-      
+
         public bool IsAscending
         {
             get => _isAscending;
             set
             {
-             
+
                 SetProperty(ref _isAscending, value);
-               
+
             }
         }
 
 
-      
+
         public bool? ShowSearchBarSection
         {
             get => _showSearchBarSection;
             set
             {
                 SetProperty(ref _showSearchBarSection, value);
-              
+
             }
         }
 
@@ -178,26 +176,18 @@ namespace Datarynx.ViewModels
 
         private async Task SortItems()
         {
-            try
+            Items.Clear();
+
+            var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
+
+            if (tepItems != null)
             {
-                await Task.Delay(2000);
-                Items.Clear();
+                var sortedList = LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort != null ? SelectedSort.PropertName : PickerElemetsCollection[0].PropertName, IsAscending);
 
-                var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
-
-                if (tepItems!=null)
+                foreach (var item in sortedList)
                 {
-                    foreach (var item in LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort != null ? SelectedSort.PropertName : PickerElemetsCollection[0].PropertName, IsAscending))
-                    {
-                        Items.Add(item);
-                    }
+                    Items.Add(item);
                 }
-                
-            }
-            catch (Exception ex)
-            {
-
-                var exceptionDetail = ex.Message;
             }
         }
 
@@ -210,7 +200,7 @@ namespace Datarynx.ViewModels
                     Items.Add(item);
                 }
             }
-            
+
         }
 
         public void OnAppearing()
