@@ -27,4 +27,4 @@ Filter and sorting functionalities has been implemented.(Click on picker for sel
 
 [![Build status](https://myarmoor.visualstudio.com/Datarynx/_apis/build/status/Datarynx-Xamarin.Android-CI)](https://myarmoor.visualstudio.com/Datarynx/_build/latest?definitionId=14)
 
-[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.USER.REPO)
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.ms/orgs/DolphinEye/apps/Datarynx.Android)
