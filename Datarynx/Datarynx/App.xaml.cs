@@ -5,6 +5,9 @@ using Datarynx.LocalDB.Repository;
 using Datarynx.Models;
 using Datarynx.ViewModels;
 using Datarynx.Views;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -29,6 +32,9 @@ namespace Datarynx
             DependencyService.RegisterSingleton<IToDoItemRepository>(new ToDoItemRepository(DependencyService.Get<SqlLiteDatabaseContext>()));
 
             MainPage = new AppShell();
+
+            Analytics.SetEnabledAsync(true);
+
             SetupData();
 
         }
@@ -77,7 +83,10 @@ namespace Datarynx
         /// </summary>
         protected override void OnStart()
         {
-            //Method is empty has its not implemeted.
+            AppCenter.Start("android=48e6569c-ce8a-48b0-8f39-21f7bc023868;" +
+                   "uwp={Your UWP App secret here};" +
+                   "ios={Your iOS App secret here}",
+                   typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>

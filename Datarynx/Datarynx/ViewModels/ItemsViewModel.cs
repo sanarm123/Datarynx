@@ -2,6 +2,8 @@
 using Datarynx.LocalDB.Models;
 using Datarynx.LocalDB.Repository;
 using Datarynx.Views;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -148,7 +150,9 @@ namespace Datarynx.ViewModels
 
         async Task ExecuteLoadItemsCommand()
         {
+
             IsBusy = true;
+            Analytics.TrackEvent("ExecuteLoadItemsCommand Called");
 
             try
             {
@@ -160,7 +164,8 @@ namespace Datarynx.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Crashes.TrackError(ex);
+
             }
             finally
             {
@@ -176,19 +181,29 @@ namespace Datarynx.ViewModels
 
         private async Task SortItems()
         {
+
             Items.Clear();
 
-            var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
-
-            if (tepItems != null)
+            try
             {
-                var sortedList = LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort != null ? SelectedSort.PropertName : PickerElemetsCollection[0].PropertName, IsAscending);
+                var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
 
-                foreach (var item in sortedList)
+                if (tepItems != null)
                 {
-                    Items.Add(item);
+                    var sortedList = LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort != null ? SelectedSort.PropertName : PickerElemetsCollection[0].PropertName, IsAscending);
+
+                    foreach (var item in sortedList)
+                    {
+                        Items.Add(item);
+                    }
                 }
             }
+            catch (Exception exception)
+            {
+
+                Crashes.TrackError(exception);
+            }
+          
         }
 
         private void AddItems(IOrderedEnumerable<ToDoItem> sortedList)
