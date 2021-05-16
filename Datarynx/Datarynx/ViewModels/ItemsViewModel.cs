@@ -172,16 +172,8 @@ namespace Datarynx.ViewModels
 
         public IQueryable<ToDoItem> GetItems(List<ToDoItem> list)
         {
-            try
-            {
-                return list.AsQueryable();
-            }
-            catch (Exception ex)
-            {
-                return null;
-               // throw;
-            }
-           
+            return list.AsQueryable();
+
         }
 
         private async Task SortItems()
