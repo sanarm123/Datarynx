@@ -85,7 +85,6 @@ namespace Datarynx
                    "ios={Your iOS App secret here}",
                    typeof(Analytics), typeof(Crashes));
 
-
             Analytics.SetEnabledAsync(true);
             Crashes.SetEnabledAsync(true);
 

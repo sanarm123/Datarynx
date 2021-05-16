@@ -15,6 +15,7 @@ namespace Datarynx.ViewModels
 
         public ItemDetailViewModel(IToDoItemRepository toDoItemDataRepository = null)
         {
+           
             _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
         }
 
