@@ -1,9 +1,11 @@
 ﻿using Datarynx.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Datarynx.Views
 {
+    [ExcludeFromCodeCoverage]
     public partial class ItemsPage : ContentPage
     {
          ItemsViewModel _viewModel;

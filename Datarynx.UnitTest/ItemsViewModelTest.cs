@@ -90,5 +90,16 @@ namespace Datarynx.UnitTest
             var itemsViewModel = new ItemsViewModel();
             Assert.NotNull(_itemsViewModel.ShowSearchBar);
         }
+
+
+        [Fact]
+        public void OnSortCpmmanClicked_Test()
+        {
+
+            var itemsViewModel = new ItemsViewModel();
+            Assert.NotNull(_itemsViewModel.SortCommand);
+        }
+
+      
     }
 }
