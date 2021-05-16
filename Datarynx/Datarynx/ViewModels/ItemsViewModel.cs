@@ -34,7 +34,7 @@ namespace Datarynx.ViewModels
 
 
         public ItemsViewModel(IToDoItemRepository toDoItemDataRepository = null)
-        {
+        { 
             _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
 
             Title = "To-Do List";
@@ -47,7 +47,6 @@ namespace Datarynx.ViewModels
             ItemTapped = new Command<ToDoItem>(OnItemSelected);
 
             SetSortPickerColums();
-
         }
 
         private void SetSortPickerColums()

@@ -33,10 +33,7 @@ namespace Datarynx
 
             MainPage = new AppShell();
 
-            Analytics.SetEnabledAsync(true);
-
-            SetupData();
-
+           
         }
 
         [ExcludeFromCodeCoverage]
@@ -87,6 +84,11 @@ namespace Datarynx
                    "uwp={Your UWP App secret here};" +
                    "ios={Your iOS App secret here}",
                    typeof(Analytics), typeof(Crashes));
+
+
+            Analytics.SetEnabledAsync(true);
+            Crashes.SetEnabledAsync(true);
+
         }
 
         /// <summary>
