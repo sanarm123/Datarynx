@@ -4,7 +4,6 @@
              x:Class="Datarynx.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:Datarynx.ViewModels"
-             xmlns:model1="clr-namespace:Datarynx.LocalDB.Models;assembly=Datarynx.LocalDB"
              x:Name="BrowseItemsPage"  >
 
 
@@ -61,7 +60,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame HasShadow="true" CornerRadius="1"   Padding="10" Margin="5"  VerticalOptions="Center">
-                            <StackLayout Padding="10" x:DataType="model1:ToDoItem" BackgroundColor="{StaticResource GridCardBackGround}">
+                            <StackLayout Padding="10"  BackgroundColor="{StaticResource GridCardBackGround}">
                                 <StackLayout Orientation="Horizontal" BackgroundColor="Transparent">
                                     <Label Text="{Binding WeekNo}"  FontSize="Small"  FontAttributes="Bold" />
                                 </StackLayout>
@@ -75,12 +74,13 @@
                                     <Label Text="{Binding CodingType}" LineBreakMode="NoWrap" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
 
                                     <Button  Text="Start Audit"  FontSize="24" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}"
-                                               HorizontalOptions="EndAndExpand"  >
+                                               HorizontalOptions="EndAndExpand" Command="{Binding BindingContext.LoadItemsCommand,Source={x:Reference BrowseItemsPage}}"  >
                                         <Button.Triggers>
                                             <DataTrigger TargetType="Button" Binding="{Binding TaskStatus}" Value="In-Progress">
                                                 <Setter Property="IsVisible" Value="False"/>
                                             </DataTrigger>
                                         </Button.Triggers>
+                                    
                                     </Button>
                                 </StackLayout>
 

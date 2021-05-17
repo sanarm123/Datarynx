@@ -22,7 +22,7 @@ namespace Datarynx.UnitTest
         public async Task AddItemAsync_ThrowsArgumentException_Test(ToDoItem val)
         {
             //arrange
-            IToDoItemRepository repo = new ToDoItemRepository(new LocalDB.DBContext.SqlLiteDatabaseContext());
+            IToDoItemRepository repo = new ToDoItemRepository();
 
             await Assert.ThrowsAsync<NullReferenceException>(() => repo.AddItemAsync(val));
         }
@@ -30,7 +30,7 @@ namespace Datarynx.UnitTest
         [Fact]
         public async Task GetItemAsync_Call_Test()
         {
-            IToDoItemRepository repo = new ToDoItemRepository(new LocalDB.DBContext.SqlLiteDatabaseContext());
+            IToDoItemRepository repo = new ToDoItemRepository();
 
             var repoRes = await repo.GetItemAsync("wk");
 

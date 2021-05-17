@@ -27,13 +27,11 @@ namespace Datarynx
         {
             InitializeComponent();
 
-            DependencyService.Register<SqlLiteDatabaseContext>();
-
-            DependencyService.RegisterSingleton<IToDoItemRepository>(new ToDoItemRepository(DependencyService.Get<SqlLiteDatabaseContext>()));
-
+            DependencyService.Register<IToDoItemRepository,ToDoItemRepository>();
             MainPage = new AppShell();
+            SetupData();
 
-           
+
         }
 
         [ExcludeFromCodeCoverage]
