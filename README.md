@@ -3,6 +3,8 @@
 
 <h1>To-Do List Project</h1>
 
+git clone https://github.com/sanarm123/Datarynx.git
+
 IDE: Visual Studio 2019 
 
 XAMARIN.FORMS Version 5.0.0.2012 Nuget Package has been used for forms and AppShell Feature has been used for FlyoutMenu.
@@ -26,3 +28,5 @@ Filter and sorting functionalities has been implemented.(Click on picker for sel
 
 
 [![Build status](https://myarmoor.visualstudio.com/Datarynx/_apis/build/status/Datarynx-Xamarin.Android-CI)](https://myarmoor.visualstudio.com/Datarynx/_build/latest?definitionId=14)
+
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.ms/orgs/DolphinEye/apps/Datarynx.Android)
