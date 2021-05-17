@@ -8,6 +8,7 @@ using Datarynx.Views;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -19,15 +20,31 @@ using Xamarin.Forms;
 
 namespace Datarynx
 {
-  
+
+
+    public static class DependencyInjectionContainer
+    {
+        [ExcludeFromCodeCoverage]
+        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        {
+            services.AddTransient<ItemsViewModel>();
+            services.AddTransient<ItemDetailViewModel>();
+
+            
+            return services;
+        }
+    }
     public partial class App : Application
     {
+     
+
         [ExcludeFromCodeCoverage]
         public  App()
         {
             InitializeComponent();
+            Startup.Init();
+            DependencyService.Register<IToDoItemRepository, ToDoItemRepository>();
 
-            DependencyService.Register<IToDoItemRepository,ToDoItemRepository>();
             MainPage = new AppShell();
             SetupData();
 

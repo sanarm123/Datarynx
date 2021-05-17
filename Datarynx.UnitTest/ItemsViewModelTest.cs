@@ -17,7 +17,7 @@ namespace Datarynx.UnitTest
     [ExcludeFromCodeCoverage]
     public class ItemsViewModelTest
     {
-        private ItemsViewModel _itemsViewModel;
+        private readonly ItemsViewModel _itemsViewModel;
         private readonly Mock<IToDoItemRepository> _toDoItemRepository=new Mock<IToDoItemRepository>();
         public ItemsViewModelTest()
         {
@@ -64,7 +64,7 @@ namespace Datarynx.UnitTest
             _toDoItemRepository.Setup(x => x.GetItemAsync("")).ReturnsAsync(items);
 
           
-            var RESULT = _toDoItemRepository.Object.GetItemAsync("");
+             _toDoItemRepository.Object.GetItemAsync("");
 
             //Act
             _itemsViewModel.LoadItemsCommand.Execute(null);
@@ -87,7 +87,6 @@ namespace Datarynx.UnitTest
         [Fact]
         public void OnSearchBarcClicked_Test()
         {
-            var itemsViewModel = new ItemsViewModel();
             Assert.NotNull(_itemsViewModel.ShowSearchBar);
         }
 
@@ -114,9 +113,8 @@ namespace Datarynx.UnitTest
             _toDoItemRepository.Setup(x => x.GetItemAsync("")).ReturnsAsync(items);
 
 
-            var RESULT = _toDoItemRepository.Object.GetItemAsync("");
+             _toDoItemRepository.Object.GetItemAsync("");
 
-           
             _itemsViewModel.SortCommand.Execute(null);
 
             Assert.NotNull(_itemsViewModel.SortCommand);

@@ -1,7 +1,6 @@
 ﻿using Datarynx.ViewModels;
-using System.ComponentModel;
 using Xamarin.Forms;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace Datarynx.Views
 {
     public partial class ItemDetailPage : ContentPage
@@ -9,7 +8,7 @@ namespace Datarynx.Views
         public ItemDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = Startup.ServiceProvider.GetService<ItemDetailViewModel>();
         }
     }
 }

@@ -9,7 +9,10 @@ namespace Datarynx.LocalDB.Models
    public class ToDoItem
     {
         [PrimaryKey, AutoIncrement]
+        [DisplayName("To Do ItemID")]
         public int ToDoItemID { get; set; }
+
+        [DisplayName("Created Date")]
         public DateTime CreateDate { get; set; }
 
         [DisplayName("Store Name")]

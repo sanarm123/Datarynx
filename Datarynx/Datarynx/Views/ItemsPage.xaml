@@ -27,7 +27,7 @@
             <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
                 <Label Text=" Sort By" AutomationId="SortedBy" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Start"></Label>
                 <Picker Title="Select Label"
-                 x:Name="picker" ItemsSource="{Binding PickerElemetsCollection}" ItemDisplayBinding="{Binding PropertyDisplayName}" SelectedItem="{Binding SelectedSort, Mode=OneWayToSource}" BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" VerticalOptions="Center" WidthRequest="100 " >
+                 x:Name="picker" WidthRequest="150"  ItemsSource="{Binding PickerElemetsCollection}" ItemDisplayBinding="{Binding PropertyDisplayName}" SelectedItem="{Binding SelectedSort, Mode=OneWayToSource}" BackgroundColor="Transparent" FlexLayout.AlignSelf="Center" VerticalOptions="Center" >
                    
                 </Picker>
 

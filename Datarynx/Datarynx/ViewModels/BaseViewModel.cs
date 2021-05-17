@@ -7,9 +7,6 @@ namespace Datarynx.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-      
-
-
         bool isBusy = false;
         public bool IsBusy
         {
@@ -24,7 +21,9 @@ namespace Datarynx.ViewModels
             set { SetProperty(ref title, value); }
         }
 
-       protected bool SetProperty<T>(ref T backingStore, T value,[CallerMemberName] string propertyName = "", Action onChanged = null)
+#pragma warning disable S3343 // Caller information parameters should come at the end of the parameter list
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
+#pragma warning restore S3343 // Caller information parameters should come at the end of the parameter list
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return false;

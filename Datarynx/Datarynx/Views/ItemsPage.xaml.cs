@@ -2,33 +2,27 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace Datarynx.Views
 {
     [ExcludeFromCodeCoverage]
     public partial class ItemsPage : ContentPage
     {
-         ItemsViewModel _viewModel;
-
-
+     
         public ItemsPage()
         {
             InitializeComponent();
-
-          
-            BindingContext = _viewModel =new ItemsViewModel();
+             BindingContext = Startup.ServiceProvider.GetService<ItemsViewModel>();
 
         }
-
-       
+              
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            Task.Delay(500);
+            ((ItemsViewModel)BindingContext).OnAppearing();
 
-            _viewModel.OnAppearing();
         }
     }
 }

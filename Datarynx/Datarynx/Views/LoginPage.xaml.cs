@@ -9,7 +9,6 @@ namespace Datarynx.Views
         public LoginPage()
         {
             InitializeComponent();
-        
         }
     }
 }

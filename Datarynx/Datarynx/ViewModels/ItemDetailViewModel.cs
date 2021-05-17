@@ -1,4 +1,5 @@
 ﻿using Datarynx.LocalDB.Repository;
+using Microsoft.AppCenter.Crashes;
 using System;
 using System.Diagnostics;
 using Xamarin.Forms;
@@ -61,7 +62,7 @@ namespace Datarynx.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to Load Item");
+                Crashes.TrackError(ex);
             }
         }
     }

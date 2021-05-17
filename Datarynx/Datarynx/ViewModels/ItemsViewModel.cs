@@ -8,36 +8,43 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Datarynx.ViewModels
 {
+    /// <summary>
+    /// Items view model viewmodel
+    /// </summary>
     public class ItemsViewModel : BaseViewModel
     {
+        #region Private Properties
         private readonly IToDoItemRepository _toDoItemDataRepository;
         private ToDoItem _selectedItem;
         private string _searchCriteria;
         private PickerElement _selectedSort;
         private bool? _showSearchBarSection = false;
         private bool _isAscending;
-
         public ObservableCollection<PickerElement> PickerElemetsCollection { get; }
-        public ObservableCollection<ToDoItem> Items { get; }
+        #endregion
 
+        #region Commands
+        public ObservableCollection<ToDoItem> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command SortCommand { get; }
         public Command ShowSearchBar { get; }
         public Command<ToDoItem> ItemTapped { get; }
+        #endregion
 
-
-        public ItemsViewModel(IToDoItemRepository toDoItemDataRepository = null)
-        { 
+        /// <summary>
+        /// Items View Model constructor
+        /// </summary>
+        /// <param name="toDoItemDataRepository">ToDoItemRepository Interface</param>
+        public ItemsViewModel(IToDoItemRepository toDoItemDataRepository=null)
+        {
             _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
 
-            Title = "To-Do List";
             Items = new ObservableCollection<ToDoItem>();
             PickerElemetsCollection = new ObservableCollection<PickerElement>();
 
@@ -46,36 +53,12 @@ namespace Datarynx.ViewModels
             ShowSearchBar = new Command(OnSearchBarcClicked);
             ItemTapped = new Command<ToDoItem>(OnItemSelected);
 
+            Title = "To-Do List";
             SetSortPickerColums();
+
         }
 
-        private void SetSortPickerColums()
-        {
-            var info = TypeDescriptor.GetProperties(typeof(ToDoItem)).Cast<PropertyDescriptor>().ToDictionary(p => p.Name, p => p.DisplayName);
-
-            foreach (var item in info)
-            {
-                PickerElemetsCollection.Add(new PickerElement() { PropertName = item.Key, PropertyDisplayName = item.Value });
-
-            }
-        }
-
-        private void ExecuteSortCommand()
-        {
-            if (IsAscending)
-            {
-                IsAscending = false;
-            }
-            else
-            {
-                IsAscending = true;
-            }
-
-            FillItems();
-        }
-
-
-
+   
         public string SearchCriteria
         {
             get => _searchCriteria;
@@ -85,42 +68,26 @@ namespace Datarynx.ViewModels
                 FillItems();
             }
         }
-
-        private void FillItems()
-        {
-            Task.Run(async () =>
-            {
-                await ExecuteLoadItemsCommand();
-            });
-        }
-
         public PickerElement SelectedSort
         {
             get => _selectedSort;
             set
             {
-                //var currentSort = _selectedSort;
+               
                 SetProperty(ref _selectedSort, value);
 
                 FillItems();
 
             }
         }
-
-
         public bool IsAscending
         {
             get => _isAscending;
             set
             {
-
                 SetProperty(ref _isAscending, value);
-
             }
         }
-
-
-
         public bool? ShowSearchBarSection
         {
             get => _showSearchBarSection;
@@ -130,23 +97,7 @@ namespace Datarynx.ViewModels
 
             }
         }
-
-
-        private void OnSearchBarcClicked(object obj)
-        {
-
-            if (ShowSearchBarSection == false)
-            {
-                ShowSearchBarSection = true;
-
-            }
-            else
-            {
-                ShowSearchBarSection = false;
-
-            }
-        }
-
+     
         async Task ExecuteLoadItemsCommand()
         {
 
@@ -171,16 +122,12 @@ namespace Datarynx.ViewModels
                 IsBusy = false;
             }
         }
-
         public IQueryable<ToDoItem> GetItems(List<ToDoItem> list)
         {
             return list.AsQueryable();
-
         }
-
         private async Task SortItems()
         {
-
             Items.Clear();
 
             try
@@ -202,25 +149,70 @@ namespace Datarynx.ViewModels
 
                 Crashes.TrackError(exception);
             }
-          
+
         }
 
-        private void AddItems(IOrderedEnumerable<ToDoItem> sortedList)
+        /// <summary>
+        /// Read Model Properties dynamically
+        /// </summary>
+        private void SetSortPickerColums()
         {
-            if (sortedList != null)
+            var info = TypeDescriptor.GetProperties(typeof(ToDoItem)).Cast<PropertyDescriptor>().ToDictionary(p => p.Name, p => p.DisplayName);
+
+            foreach (var item in info)
             {
-                foreach (var item in sortedList)
-                {
-                    Items.Add(item);
-                }
+                PickerElemetsCollection.Add(new PickerElement() { PropertName = item.Key, PropertyDisplayName = item.Value });
+            }
+        }
+
+        private void ExecuteSortCommand()
+        {
+            if (IsAscending)
+            {
+                IsAscending = false;
+            }
+            else
+            {
+                IsAscending = true;
             }
 
+            FillItems();
         }
 
         public void OnAppearing()
         {
             IsBusy = true;
             SelectedItem = null;
+        }
+
+        private void FillItems()
+        {
+            Task.Run(async () =>
+            {
+                await ExecuteLoadItemsCommand();
+            });
+        }
+
+        async void OnItemSelected(ToDoItem item)
+        {
+            if (item == null)
+                return;
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.ToDoItemID}");
+        }
+
+        private void OnSearchBarcClicked(object obj)
+        {
+
+            if (ShowSearchBarSection == false)
+            {
+                ShowSearchBarSection = true;
+
+            }
+            else
+            {
+                ShowSearchBarSection = false;
+
+            }
         }
 
         public ToDoItem SelectedItem
@@ -231,14 +223,6 @@ namespace Datarynx.ViewModels
                 SetProperty(ref _selectedItem, value);
                 OnItemSelected(value);
             }
-        }
-
-
-        async void OnItemSelected(ToDoItem item)
-        {
-            if (item == null)
-                return;
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.ToDoItemID}");
         }
 
     }

@@ -13,7 +13,7 @@ namespace Datarynx.UITests
     public class ItemsPageUITest
     {
         IApp app;
-        Platform platform;
+        private readonly Platform  platform;
 
 
         public ItemsPageUITest(Platform platform)
@@ -46,18 +46,6 @@ namespace Datarynx.UITests
             Assert.IsTrue(true);
         }
 
-        //[Test]
-        //[Order(2)]
-        //[Category("Falyout menu Tests")]
-        //public void LogOutTest()
-        //{
-        //    app.Tap(x => x.Marked("FlyoutIconAutoId"));
-
-        //    app.Screenshot("Flyout Screen");
-
-        //    app.Tap(x => x.Marked("LogoutButton"));
-
-        //    Assert.IsTrue(true);
-        //}
+    
     }
 }

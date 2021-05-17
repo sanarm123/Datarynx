@@ -24,7 +24,9 @@ namespace Datarynx.LocalDB.Repository
            
             if (item is null)
             {
+#pragma warning disable S112 // General exceptions should never be thrown
                 throw new NullReferenceException("Null value passsed");
+#pragma warning restore S112 // General exceptions should never be thrown
             }
 
             return _sqlLiteDatabaseContext.Connection.InsertAsync(item);

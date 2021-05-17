@@ -10,7 +10,7 @@ namespace Datarynx.UnitTest
     [ExcludeFromCodeCoverage]
     public class LoginViewModelTest
     {
-        private LoginViewModel _loginViewModel;
+        private readonly LoginViewModel _loginViewModel;
         public LoginViewModelTest()
         {
             _loginViewModel = new LoginViewModel();

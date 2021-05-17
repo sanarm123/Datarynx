@@ -17,7 +17,7 @@ namespace Datarynx.UnitTest
     [ExcludeFromCodeCoverage]
     public class ItemDetailViewModelTest
     {
-        private ItemDetailViewModel _itemsViewModel;
+        private readonly ItemDetailViewModel _itemsViewModel;
 
         private readonly Mock<IToDoItemRepository> itodoRepo = new Mock<IToDoItemRepository>();
         public ItemDetailViewModelTest()
