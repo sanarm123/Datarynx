@@ -25,7 +25,7 @@ namespace Datarynx.UnitTest
             var platformServicesFake = A.Fake<IPlatformServices>();
             Device.PlatformServices = platformServicesFake;
 
-            _itemsViewModel = new ItemDetailViewModel();
+            _itemsViewModel = new ItemDetailViewModel(itodoRepo.Object);
         }
 
         [Fact]

@@ -29,8 +29,8 @@ namespace Datarynx
         {
             services.AddTransient<ItemsViewModel>();
             services.AddTransient<ItemDetailViewModel>();
+            services.AddSingleton<IToDoItemRepository, ToDoItemRepository>();
 
-            
             return services;
         }
     }
@@ -43,18 +43,17 @@ namespace Datarynx
         {
             InitializeComponent();
             Startup.Init();
-            DependencyService.Register<IToDoItemRepository, ToDoItemRepository>();
 
             MainPage = new AppShell();
             SetupData();
 
-
+            
         }
 
         [ExcludeFromCodeCoverage]
         private static void SetupData()
         {
-            var itemsReository = DependencyService.Get<IToDoItemRepository>();
+            var itemsReository = Startup.ServiceProvider.GetService<IToDoItemRepository>();
 
             var items = itemsReository.GetItemAsync(string.Empty).Result;
 

@@ -14,10 +14,10 @@ namespace Datarynx.ViewModels
         private string _storeName;
         private string _storeAddress;
 
-        public ItemDetailViewModel(IToDoItemRepository toDoItemDataRepository = null)
+        public ItemDetailViewModel(IToDoItemRepository toDoItemDataRepository)
         {
-           
-            _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
+            _toDoItemDataRepository = toDoItemDataRepository;
+
         }
 
    

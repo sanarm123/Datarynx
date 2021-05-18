@@ -41,10 +41,9 @@ namespace Datarynx.ViewModels
         /// Items View Model constructor
         /// </summary>
         /// <param name="toDoItemDataRepository">ToDoItemRepository Interface</param>
-        public ItemsViewModel(IToDoItemRepository toDoItemDataRepository=null)
+        public ItemsViewModel(IToDoItemRepository toDoItemDataRepository)
         {
-            _toDoItemDataRepository = toDoItemDataRepository == null ? DependencyService.Get<IToDoItemRepository>() : toDoItemDataRepository;
-
+            _toDoItemDataRepository = toDoItemDataRepository;
             Items = new ObservableCollection<ToDoItem>();
             PickerElemetsCollection = new ObservableCollection<PickerElement>();
 
@@ -100,22 +99,17 @@ namespace Datarynx.ViewModels
      
         async Task ExecuteLoadItemsCommand()
         {
-
             IsBusy = true;
             Analytics.TrackEvent("ExecuteLoadItemsCommand Called");
 
             try
             {
-
                 Items.Clear();
-
                 await SortItems();
-
             }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
-
             }
             finally
             {
@@ -126,17 +120,22 @@ namespace Datarynx.ViewModels
         {
             return list.AsQueryable();
         }
+     
+        /// <summary>
+        /// Sort Method
+        /// </summary>
+        /// <returns></returns>
         private async Task SortItems()
         {
             Items.Clear();
 
             try
             {
-                var tepItems = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
+                var todoListBySearchCritieria = await _toDoItemDataRepository.GetItemAsync(SearchCriteria);
 
-                if (tepItems != null)
+                if (todoListBySearchCritieria != null)
                 {
-                    var sortedList = LinqHelper.OrderBy<ToDoItem>(GetItems(tepItems), SelectedSort != null ? SelectedSort.PropertName : PickerElemetsCollection[0].PropertName, IsAscending);
+                    var sortedList = LinqHelper.OrderBy<ToDoItem>(GetItems(todoListBySearchCritieria), SelectedSort != null ? SelectedSort.PropertName : PickerElemetsCollection[0].PropertName, IsAscending);
 
                     foreach (var item in sortedList)
                     {
@@ -146,7 +145,6 @@ namespace Datarynx.ViewModels
             }
             catch (Exception exception)
             {
-
                 Crashes.TrackError(exception);
             }
 

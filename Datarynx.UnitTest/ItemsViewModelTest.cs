@@ -24,7 +24,13 @@ namespace Datarynx.UnitTest
             var platformServicesFake = A.Fake<IPlatformServices>();
             Device.PlatformServices = platformServicesFake;
 
-           
+            List<ToDoItem> items = new List<ToDoItem>();
+
+            items.Add(new LocalDB.Models.ToDoItem() { ToDoItemID=1, StoreName = "Test" });
+            items.Add(new LocalDB.Models.ToDoItem() { ToDoItemID=2, StoreName = "Test2" });
+            items.Add(new LocalDB.Models.ToDoItem() { ToDoItemID=3, StoreName = "Test3" });
+
+            _toDoItemRepository.Setup(x => x.GetItemAsync("wk")).ReturnsAsync(items);
 
             _itemsViewModel = new ItemsViewModel(_toDoItemRepository.Object);
         }
@@ -43,35 +49,25 @@ namespace Datarynx.UnitTest
             Assert.NotNull(_itemsViewModel.ShowSearchBar);
         }
 
-        [Fact]
-        public void LoadItemsCommand_Not_Null_Execute_Test()
+
+      
+        [Theory]
+        [InlineData("StoreName","Store Name")]
+        public void LoadItemsCommand_GetResults_Test(string propertyName, string displayName)
         {
             //Arrange
-            _itemsViewModel.SelectedSort =new Helpers.PickerElement() { 
-                PropertyDisplayName="StoreName",
-                 PropertName ="StoreName" 
+            _itemsViewModel.SelectedSort = new Helpers.PickerElement()
+            {   PropertyDisplayName = displayName,
+                PropertName = propertyName
             };
-            _itemsViewModel.Items.Add(new ToDoItem());
-            _itemsViewModel.Items.Add(new ToDoItem());
-            _itemsViewModel.Items.Add(new ToDoItem());
 
-            List<ToDoItem> items = new List<ToDoItem>();
-
-            items.Add(new LocalDB.Models.ToDoItem() { StoreName="Test" });
-            items.Add(new LocalDB.Models.ToDoItem() { StoreName="Test2" });
-            items.Add(new LocalDB.Models.ToDoItem() { StoreName="Test3" });
-
-            _toDoItemRepository.Setup(x => x.GetItemAsync("")).ReturnsAsync(items);
-
-          
-             _toDoItemRepository.Object.GetItemAsync("");
-
+            _itemsViewModel.SearchCriteria = "wk";
+           
             //Act
             _itemsViewModel.LoadItemsCommand.Execute(null);
 
             //Assert
-            Assert.NotNull(_itemsViewModel.LoadItemsCommand);
-
+            Assert.True(_itemsViewModel.Items.Count>0);
 
         }
 
