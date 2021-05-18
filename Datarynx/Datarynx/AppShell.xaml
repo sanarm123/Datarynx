@@ -81,7 +81,7 @@
     -->
    
     <Shell.FlyoutHeader>
-        <local:HeaderContentView></local:HeaderContentView>
+        <local:HeaderContentView   Command="{Binding OpenWebCommand}"></local:HeaderContentView>
     </Shell.FlyoutHeader>
     
     <FlyoutItem Title="To-Do List" Icon="icon_feed.png">
