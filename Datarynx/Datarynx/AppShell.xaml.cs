@@ -9,6 +9,7 @@ using Xamarin.Forms;
 
 namespace Datarynx
 {
+
     [ExcludeFromCodeCoverage]
     public partial class AppShell : Xamarin.Forms.Shell
     {
