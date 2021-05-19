@@ -7,7 +7,7 @@
       <StackLayout BackgroundColor="Transparent" VerticalOptions="Center">
             <Image Source="sampleclient.png" BackgroundColor="White" ></Image>
             <Label Text="Santosh Armoor" HorizontalTextAlignment="Center" FontSize="30" BackgroundColor="White"></Label>
-            <Button x:Name="innerButton" Text="Clck MeV2" Command="{Binding }"  ></Button>
+            <Button x:Name="innerButton" Text="Clck Title Cahnge" Command="{Binding }"  ></Button>
       
       </StackLayout>
   </ContentView.Content>
