@@ -2,22 +2,66 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Datarynx.Views.AboutPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:Datarynx.ViewModels"
              Title="{Binding Title}">
     
-    <ContentPage.BindingContext>
-        <vm:AboutViewModel />
-    </ContentPage.BindingContext>
-    
+   
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Color x:Key="Accent">#96d1ff</Color>
+            <xct:NotEqualConverter x:Key="NotEqualConverter" />
+            <Style x:Key="InvalidStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Red"></Setter>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
 
     <StackLayout>
-        
+
+        <Entry Keyboard="Numeric">
+            <Entry.Behaviors>
+                <xct:MaskedBehavior Mask="XX-XX-XX" />
+            </Entry.Behaviors>
+        </Entry>
+        <Entry Keyboard="Numeric" Placeholder="dd/mm/yyyy">
+            <Entry.Behaviors>
+                <xct:MaskedBehavior Mask="XX/XX/XXXX" />
+            </Entry.Behaviors>
+        </Entry>
+        <Entry
+                x:Name="ExampleText"
+                Placeholder="100 for false other for true"
+                Text="{Binding Input}"
+                />
+        <Label
+                Padding="7,0,0,0"
+                BindingContext="{x:Reference Name=ExampleText}"
+                Text="{Binding Path=Text, Converter={StaticResource NotEqualConverter}, ConverterParameter=100}"
+               />
+
+        <Entry>
+            <Entry.Behaviors>
+                <xct:UriValidationBehavior UriKind="Absolute" InvalidStyle="{StaticResource InvalidStyle}">
+                    
+                </xct:UriValidationBehavior>
+            </Entry.Behaviors>
+        </Entry>
+
+        <Entry>
+            <Entry.Behaviors>
+                <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidStyle}" xct:MultiValidationBehavior.Error="Please enter valid string">
+                    <xct:CharactersValidationBehavior MinimumLength="1" MaximumLength="5"    InvalidStyle="{StaticResource InvalidStyle}">
+
+                    </xct:CharactersValidationBehavior>
+                </xct:MultiValidationBehavior>
+              
+            </Entry.Behaviors>
+        </Entry>
+
+      
+
+        <Button Text="Click" Command="{Binding OpenWebCommand}"></Button>
     </StackLayout>
     
 </ContentPage>

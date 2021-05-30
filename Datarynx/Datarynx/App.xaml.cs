@@ -5,6 +5,7 @@ using Datarynx.LocalDB.Repository;
 using Datarynx.Models;
 using Datarynx.ViewModels;
 using Datarynx.Views;
+using FluentValidation;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -29,6 +30,7 @@ namespace Datarynx
         {
             services.AddTransient<ItemsViewModel>();
             services.AddTransient<ItemDetailViewModel>();
+            services.AddTransient<AboutViewModel>();
             services.AddSingleton<IToDoItemRepository, ToDoItemRepository>();
 
             return services;
